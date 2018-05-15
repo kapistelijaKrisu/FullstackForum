@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
 const config = require('./utils/config')
+const client = require('./utils/dbclient')
 const testRouter = require('./controllers/testcontroller')
 
 app.use(cors())
@@ -19,8 +20,7 @@ app.use(middleware.error)
 const server = http.createServer(app)
 
 server.listen(config.port, () => {
-  console.log(`Server running on port ${config.port}`)
-  console.log(`database running on port ${config.dbPort}`)
+  console.log(`Server running on port  ${config.port}`)
 })
 
 module.exports = {
