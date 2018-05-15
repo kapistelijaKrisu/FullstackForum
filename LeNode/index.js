@@ -20,6 +20,7 @@ const server = http.createServer(app)
 
 server.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`)
+  console.log(`database running on port ${config.dbPort}`)
 })
 
 module.exports = {

@@ -7,11 +7,14 @@ let port = null
 //sql tähä
 if (process.env.NODE_ENV === 'test') {
   port = process.env.TEST_PORT
+  dbPort = process.env.DEV_DB
 } else {
   port = process.env.DEV_PORT
+  dbPort = process.env.DEV_DB
 }
 
 
 module.exports = {
-  port
+  port,
+  dbPort
 }
