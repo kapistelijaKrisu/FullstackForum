@@ -1,35 +1,76 @@
 const { pool } = require('./dbpool')
-const { initRole, insertRole } = require('../sqlqueries/role')
-const { initDude, insertDude } = require('../sqlqueries/dude')
+const { addData } = require('./dbtestdata')
 
 const dbcreation = async () => {
     console.log('checking for database')
-    await pool.query('DROP TABLE Dude')
-    await pool.query('DROP TABLE Role')
+    const client = await pool.connect()
+    if (process.env.NODE_ENV !== 'production') {
+        refreshDataBase(client)
+    }
 
     try {
-        const checkForInitQuery = 'SELECT COUNT(*) '
-            + 'FROM information_schema.tables '
-            + "WHERE table_catalog = 'forum' "
-            + "AND table_name = 'dude'; "
-        const checkforInit = await pool.query(checkForInitQuery)
-        if (checkforInit.rows[0].count !== '0') { //count is a string
+        if (await checkforATable(client)) {
             console.log('a table is found. Assuming database is set.')
-
         } else {
             console.log('database table not found. Creating tables.')
-            await initRole()
-            await initDude()
-            const plebId = await insertRole('PLEB')
-            const modId = await insertRole('MOD')
-            const dude1 = await insertDude('dude1', 'pw1', plebId)
-            const dude2 = await insertDude('dude2', 'pw2', modId)
+            await initRole(client)
+            await initDude(client)
             console.log('Tables have been set')
+
+            if (process.env.NODE_ENV !== 'production') {
+                console.log('adding test data..')
+                await addData()
+                console.log('Test data has been added')
+            }
         }
     } catch (e) {
         console.log('db init failed', e.stack)
+    } finally {
+        client.release()
     }
 
+}
+
+const initRole = async (client) => {
+    const text = 'CREATE TABLE Role ('
+        + 'roleID SERIAL PRIMARY KEY, '
+        + 'role varchar(31) NOT NULL UNIQUE '
+        + '); '
+    await client.query(text)
+}
+
+const initDude = async (client) => {
+    const text = 'CREATE TABLE Dude ('
+        + 'dudeID SERIAL NOT NULL PRIMARY KEY, '
+        + 'nickname varchar(31) NOT NULL UNIQUE, '
+        + 'password varchar(127) NOT NULL, '
+        + 'roleID int, '
+        + 'FOREIGN KEY (roleID) REFERENCES Role(roleID)'
+        + '); '
+    await client.query(text)
+}
+
+const checkforATable = async (client) => {
+    const checkForInitQuery = 'SELECT COUNT(*) '
+        + 'FROM information_schema.tables '
+        + "WHERE table_catalog = 'forum' "
+        + "AND table_name = 'dude'; "
+    const checkforInit = await client.query(checkForInitQuery)
+
+    return checkforInit.rows[0].count !== '0' //count is a string
+}
+
+const refreshDataBase = async (client) => {
+    try {
+        await dropTables(client)
+    } catch (e) {
+        console.log(e.stack)
+    }
+}
+
+const dropTables = async (client) => {
+    await client.query('DROP TABLE Dude')
+    await client.query('DROP TABLE Role')
 }
 
 dbcreation()
