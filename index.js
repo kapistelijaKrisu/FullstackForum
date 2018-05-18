@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
 const config = require('./utils/config')
-const client = require('./utils/dbclient')
+const dbInit = require('./utils/dbInit')
 const testRouter = require('./controllers/testcontroller')
 
 app.use(cors())
