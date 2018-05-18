@@ -3,11 +3,11 @@ const { Pool } = require('pg');
 
 const conString = config.db
 
-const dbPool = new Pool({
+const pool = new Pool({
   connectionString: conString,
   ssl: true,
 });
 
 module.exports = {
-    dbPool
+    pool
   }

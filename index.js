@@ -6,14 +6,14 @@ const cors = require('cors')
 const middleware = require('./utils/middleware')
 const config = require('./utils/config')
 const dbInit = require('./utils/dbInit')
-const testRouter = require('./controllers/testcontroller')
+const dudeRouter = require('./controllers/dudecontroller')
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('build'))
 app.use(middleware.logger)
 
-app.use('/api/', testRouter)
+app.use('/api/dude', dudeRouter)
 
 app.use(middleware.error)
 
