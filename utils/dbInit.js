@@ -1,32 +1,30 @@
 const { pool } = require('./dbpool')
 const { addData } = require('./dbtestdata')
-const {plebId, modId, initRoles } = require('../sqlqueries/role')
+const { plebId, modId, initRoles } = require('../sqlqueries/role')
 
 const dbcreation = async () => {
     console.log('checking for database')
     const client = await pool.connect()
     if (process.env.NODE_ENV !== 'production') {
-        refreshDataBase(client)
+        await refreshDataBase(client)
     }
 
     try {
-        if (await checkforATable(client)) {
-            console.log('a table is found. Assuming database is set.')
-        } else {
-            console.log('database table not found. Creating tables.')
-            await initRoleTable(client)
-            await initRoles(client)
-            await initRoles(client)
-            await initDudeTable(client)
-            
-            console.log('Tables have been set')
+        await initRoleTable(client)
+        await initRoles(client)
+        await initRoles(client)
+        await initDudeTable(client)
+        await initCategoryTable(client)
+        
 
-            if (process.env.NODE_ENV !== 'production') {
-                console.log('adding test data..')
-                await addData()
-                console.log('Test data has been added')
-            }
+        console.log('Tables have been set')
+
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('adding test data..')
+            await addData()
+            console.log('Test data has been added')
         }
+
     } catch (e) {
         console.log('db init failed', e.stack)
     } finally {
@@ -53,6 +51,16 @@ const initDudeTable = async (client) => {
         + '); '
     await client.query(text)
 }
+const initCategoryTable = async (client) => {
+    const text = 'CREATE TABLE Category ('
+        + 'categoryID SERIAL NOT NULL PRIMARY KEY, '
+        + 'name varchar(31) NOT NULL UNIQUE, '
+        + 'description varchar(127) NOT NULL, '
+        + 'creatorID int, '
+        + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID)'
+        + '); '
+    await client.query(text)
+}
 
 const checkforATable = async (client) => {
     const checkForInitQuery = 'SELECT COUNT(*) '
@@ -65,16 +73,18 @@ const checkforATable = async (client) => {
 }
 
 const refreshDataBase = async (client) => {
-    try {
-        await dropTables(client)
-    } catch (e) {
-        console.log(e.stack)
-    }
+
+    await dropTable(client, 'DROP TABLE Category')
+    await dropTable(client, 'DROP TABLE Dude')
+    await dropTable(client, 'DROP TABLE Role')
 }
 
-const dropTables = async (client) => {
-    await client.query('DROP TABLE Dude')
-    await client.query('DROP TABLE Role')
+const dropTable = async (client, text) => {
+    try {
+        await client.query(text)
+    } catch (e) {
+   //     console.log(e.stack)
+    }
 }
 
 dbcreation()

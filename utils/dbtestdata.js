@@ -1,5 +1,6 @@
 const { pool } = require('./dbpool')
 const { insertDude } = require('../sqlqueries/dude')
+const { insertCategory } = require('../sqlqueries/category')
 const { getModId, getPlebId } = require('../sqlqueries/role')
 const bcrypt = require('bcrypt')
 
@@ -15,7 +16,10 @@ const addData = async () => {
     const dude1 = await insertDude(dudeVar1)
     const dudeVar2 = { username: 'dude2', password: pw2, roleID: getPlebId() }
     const dude2 = await insertDude(dudeVar2)
-    console.log(dude1)
+
+    const catVar1 = {name:'categ1', description:'dis a test category', creatorid:dude2.dudeid}
+    const cat1 = await insertCategory(catVar1)
+
 }
 
 module.exports = {
