@@ -1,0 +1,8 @@
+POST http://localhost:3002/api/category/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vZCIsImlkIjoxLCJyb2xlaWQiOjIsImlhdCI6MTUyNjk5NTk5Nn0.eZwcsnS_4Xrtt75hUITZuoe5wWXzDHVK0itkALMICqY
+Content-Type: application/json
+
+{
+    "name":"cat",
+    "description":"desc"
+}

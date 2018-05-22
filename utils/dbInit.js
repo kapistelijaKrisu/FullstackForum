@@ -15,7 +15,7 @@ const dbcreation = async () => {
         await initRoles(client)
         await initDudeTable(client)
         await initCategoryTable(client)
-        
+
 
         console.log('Tables have been set')
 
@@ -46,7 +46,7 @@ const initDudeTable = async (client) => {
         + 'dudeID SERIAL NOT NULL PRIMARY KEY, '
         + 'username varchar(31) NOT NULL UNIQUE, '
         + 'password varchar(127) NOT NULL, '
-        + 'roleID int, '
+        + 'roleID int NOT NULL, '
         + 'FOREIGN KEY (roleID) REFERENCES Role(roleID)'
         + '); '
     await client.query(text)
@@ -56,20 +56,10 @@ const initCategoryTable = async (client) => {
         + 'categoryID SERIAL NOT NULL PRIMARY KEY, '
         + 'name varchar(31) NOT NULL UNIQUE, '
         + 'description varchar(127) NOT NULL, '
-        + 'creatorID int, '
+        + 'creatorID int NOT NULL, '
         + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID)'
         + '); '
     await client.query(text)
-}
-
-const checkforATable = async (client) => {
-    const checkForInitQuery = 'SELECT COUNT(*) '
-        + 'FROM information_schema.tables '
-        + "WHERE table_catalog = 'forum' "
-        + "AND table_name = 'dude'; "
-    const checkforInit = await client.query(checkForInitQuery)
-
-    return checkforInit.rows[0].count !== '0' //count is a string
 }
 
 const refreshDataBase = async (client) => {
@@ -83,7 +73,7 @@ const dropTable = async (client, text) => {
     try {
         await client.query(text)
     } catch (e) {
-   //     console.log(e.stack)
+        //     console.log(e.stack)
     }
 }
 

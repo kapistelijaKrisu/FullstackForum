@@ -14,24 +14,16 @@ const findByID = async (categoryID) => {
 
 const findByName = async (name) => {
     const text = 'SELECT * FROM Category WHERE username = $1'
-    try {
-        const { rows } = await pool.query(text, [name])
-        return rows[0]
-    } catch (e) {
-        console.log(e.stack)
-    }
+    const { rows } = await pool.query(text, [name])
+    return rows[0]
 }
 
 
 const insertCategory = async (category) => {
     const text = 'INSERT INTO Category(name, description, creatorid) VALUES($1, $2, $3) RETURNING * ;'
     const values = [category.name, category.description, category.creatorid]
-    try {
-        const { rows } = await pool.query(text, values)
-        return rows[0]
-    } catch (e) {
-        console.log(e.stack)
-    }
+    const { rows } = await pool.query(text, values)
+    return rows[0]
 }
 
 module.exports = {

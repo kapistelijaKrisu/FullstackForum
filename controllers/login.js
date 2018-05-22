@@ -7,8 +7,9 @@ router.post('/', async (request, response) => {
     console.log('loggin backend')
     try {
         const credentials = request.body
-
+        console.log(credentials)
         const dude = await dudequeries.findByNick(credentials.username)
+     console.log(dude)
         const passwordCorrect = dude === null ?
             false : await bcrypt.compare(credentials.password, dude.password)
 
@@ -18,11 +19,12 @@ router.post('/', async (request, response) => {
 
         const loginToken = {
             username: dude.username,
-            id: dude.id
+            id: dude.dudeid,
+            roleid: dude.roleid
         }
         const token = jwt.sign(loginToken, process.env.SECRET)
 
-        response.status(200).send({ token, username: dude.username })
+        response.status(200).send({ token, loginToken })
 
     } catch (exception) {
         console.log(exception)

@@ -1,8 +1,7 @@
 const { pool } = require('../utils/dbpool')
 
-
 const findByID = async (dudeid) => {
-    const text = 'SELECT * FROM Role WHERE dudeID = $1'
+    const text = 'SELECT * FROM Dude WHERE dudeID = $1'
     const { rows } = await pool.query(text, [dudeid])
     return rows[0]
 }
