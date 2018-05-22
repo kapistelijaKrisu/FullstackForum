@@ -1,5 +1,6 @@
 const { pool } = require('./dbpool')
 const { addData } = require('./dbtestdata')
+const {plebId, modId, initRoles } = require('../sqlqueries/role')
 
 const dbcreation = async () => {
     console.log('checking for database')
@@ -13,8 +14,11 @@ const dbcreation = async () => {
             console.log('a table is found. Assuming database is set.')
         } else {
             console.log('database table not found. Creating tables.')
-            await initRole(client)
-            await initDude(client)
+            await initRoleTable(client)
+            await initRoles(client)
+            await initRoles(client)
+            await initDudeTable(client)
+            
             console.log('Tables have been set')
 
             if (process.env.NODE_ENV !== 'production') {
@@ -31,7 +35,7 @@ const dbcreation = async () => {
 
 }
 
-const initRole = async (client) => {
+const initRoleTable = async (client) => {
     const text = 'CREATE TABLE Role ('
         + 'roleID SERIAL PRIMARY KEY, '
         + 'role varchar(31) NOT NULL UNIQUE '
@@ -39,10 +43,10 @@ const initRole = async (client) => {
     await client.query(text)
 }
 
-const initDude = async (client) => {
+const initDudeTable = async (client) => {
     const text = 'CREATE TABLE Dude ('
         + 'dudeID SERIAL NOT NULL PRIMARY KEY, '
-        + 'nickname varchar(31) NOT NULL UNIQUE, '
+        + 'username varchar(31) NOT NULL UNIQUE, '
         + 'password varchar(127) NOT NULL, '
         + 'roleID int, '
         + 'FOREIGN KEY (roleID) REFERENCES Role(roleID)'

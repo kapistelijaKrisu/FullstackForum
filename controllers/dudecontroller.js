@@ -1,33 +1,39 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const dudequeries = require('../sqlqueries/dude')
 
-
-router.get('/', async (request, response) => {
-
-    response.json('Helllo world!')
-})
 
 router.post('/', async (request, response) => {
+    try {
+        const body = request.body
 
-    const body = request.body
+        if (body.password.length < 3) {
+            return response.status(400).json({ error: 'password has to be at least 3 characters long!' })
+        }
 
-    const dude = await User.findOne({ username: body.username })
-    const passwordCorrect = dude === null ?
-        false :
-        await bcrypt.compare(body.password, dude.passwordHash)
+        const existingDude = await dudequeries.findByNick(body.username)
+        console.log(existingDude)
+        if (existingDude) {
+            return response.status(400).json({ error: 'username must be unique' })
+        }
 
-    if (!(dude && passwordCorrect)) {
-        return response.status(401).send({ error: 'invalid username or password' })
+        const saltRounds = 10
+        const passwordHash = await bcrypt.hash(body.password, saltRounds)
+
+        const user = {
+            username: body.username,
+            name: body.name,
+            roleid: body.adult,
+            passwordHash
+        }
+
+        const savedUser = await user.save()
+
+        response.json(User.format(savedUser))
+    } catch (exception) {
+        console.log(exception)
+        response.status(500).json({ error: 'something went wrong...' })
     }
-
-    const userForToken = {
-        username: dude.username,
-        id: dude._id
-    }
-
-    const token = jwt.sign(userForToken, process.env.SECRET)
-
-    response.status(200).send({ token, username: dude.username, name: dude.name })
 })
 module.exports = router

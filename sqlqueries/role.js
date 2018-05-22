@@ -12,17 +12,45 @@ const findByRole = async (role) => {
     return rows[0]
 }
 
-
-
-const insertRole = async (role) => {
+const insertRole = async (client, role) => {
 
     const text = 'INSERT INTO Role(role) VALUES($1) Returning roleId'
-    const { rows } = await pool.query(text, [role])
+    const { rows } = await client.query(text, [role])
     return rows[0].roleid
+}
+
+let plebId
+let modId
+
+const getPlebId = () => {
+    return plebId
+}
+const getModId = () => {
+    return modId
+}
+
+const initRoles = async (client) => {
+    const foundPleb = await findByRole('PLEB')
+    if (!foundPleb) {
+        console.log('creating plebid')
+        plebId = await insertRole(client, 'PLEB')
+        console.log(plebId)
+    } else {
+        plebId = foundPleb.roleid
+    }
+
+    const foundMod = await findByRole('MOD')
+    if (!await foundMod) {
+         modId = await insertRole(client, 'MOD')
+    } else {
+        modId = foundMod.roleid
+    }
 }
 
 module.exports = {
     findByID,
     findByRole,
-    insertRole
+    initRoles,
+    getModId,
+    getPlebId
 }
