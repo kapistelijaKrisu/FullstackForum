@@ -10,6 +10,7 @@ const dudeRouter = require('./controllers/dude')
 const loginRouter = require('./controllers/login')
 const rootRouter = require('./controllers/root')
 const categoryRouter = require('./controllers/category')
+const forumpostRouter = require('./controllers/forumpost')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -22,6 +23,7 @@ app.use('/api', rootRouter)
 app.use('/api/category', categoryRouter)
 app.use('/api/dude', dudeRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/forumpost', forumpostRouter)
 
 app.use(middleware.error)
 

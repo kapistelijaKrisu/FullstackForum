@@ -15,7 +15,8 @@ const dbcreation = async () => {
         await initRoles(client)
         await initDudeTable(client)
         await initCategoryTable(client)
-
+        await initForumPostTable(client)
+        await initCommentTable(client)
 
         console.log('Tables have been set')
 
@@ -61,9 +62,33 @@ const initCategoryTable = async (client) => {
         + '); '
     await client.query(text)
 }
+const initForumPostTable = async (client) => {
+    const text = 'CREATE TABLE Forumpost ('
+        + 'forumpostID SERIAL NOT NULL PRIMARY KEY, '
+        + 'title varchar(31) NOT NULL, '
+        + 'content varchar(1023) NOT NULL, '
+        + 'creatorID int NOT NULL, '
+        + 'categoryID int NOT NULL, '
+        + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID), '
+        + 'FOREIGN KEY (categoryID) REFERENCES Category(categoryID)'
+        + '); '
+    await client.query(text)
+}
+const initCommentTable = async (client) => {
+    const text = 'CREATE TABLE Comment ('
+        + 'commentID SERIAL NOT NULL PRIMARY KEY, '
+        + 'content varchar(1023) NOT NULL, '
+        + 'creatorID int NOT NULL, '
+        + 'forumpostID int NOT NULL, '
+        + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID), '
+        + 'FOREIGN KEY (forumpostID) REFERENCES Forumpost(forumpostID)'
+        + '); '
+    await client.query(text)
+}
 
 const refreshDataBase = async (client) => {
-
+    await dropTable(client, 'DROP TABLE Comment')
+    await dropTable(client, 'DROP TABLE Forumpost')
     await dropTable(client, 'DROP TABLE Category')
     await dropTable(client, 'DROP TABLE Dude')
     await dropTable(client, 'DROP TABLE Role')

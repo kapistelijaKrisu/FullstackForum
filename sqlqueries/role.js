@@ -32,9 +32,7 @@ const getModId = () => {
 const initRoles = async (client) => {
     const foundPleb = await findByRole('PLEB')
     if (!foundPleb) {
-        console.log('creating plebid')
         plebId = await insertRole(client, 'PLEB')
-        console.log(plebId)
     } else {
         plebId = foundPleb.roleid
     }
