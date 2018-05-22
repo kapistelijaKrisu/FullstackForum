@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
-const { findByCategoryId, findByDudeId, insertForumpost } = require('../sqlqueries/forumpost')
+const { findByForumpostId, findByDudeId, insertComment } = require('../sqlqueries/comment')
 
-router.get('/category/:categoryid', async (request, response) => {
-    const forumposts = await findByCategoryId(request.params.categoryid)
+router.get('/forumpost/:forumpostid', async (request, response) => {
+    const forumposts = await findByForumpostId(request.params.forumpostid)
     response.json(categories)
 })
 router.get('/dude/:dudeid', async (request, response) => {
@@ -12,7 +12,7 @@ router.get('/dude/:dudeid', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
-   /* const token = request.token
+    /*const token = request.token
     const decodedToken = jwt.verify(token, process.env.SECRET)
 
     if (!token || !decodedToken.id) {

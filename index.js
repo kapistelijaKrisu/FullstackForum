@@ -11,6 +11,7 @@ const loginRouter = require('./controllers/login')
 const rootRouter = require('./controllers/root')
 const categoryRouter = require('./controllers/category')
 const forumpostRouter = require('./controllers/forumpost')
+const commentRouter = require('./controllers/comment')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -24,6 +25,7 @@ app.use('/api/category', categoryRouter)
 app.use('/api/dude', dudeRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/forumpost', forumpostRouter)
+app.use('/api/comment', commentRouter)
 
 app.use(middleware.error)
 
