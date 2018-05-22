@@ -18,9 +18,9 @@ const findByNick = async (nickname) => {
 }
 
 
-const insertDude = async (nickname, password, roleID) => {
+const insertDude = async (dude) => {
     const text = 'INSERT INTO dude(username, password, roleID) VALUES($1, $2, $3) RETURNING * ;'
-    const values = [nickname, password, roleID]
+    const values = [dude.username, dude.password, dude.roleID]
     try {
         const { rows } = await pool.query(text, values)
         return rows[0]

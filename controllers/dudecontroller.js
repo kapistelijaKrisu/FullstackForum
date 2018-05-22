@@ -2,9 +2,11 @@ const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const dudequeries = require('../sqlqueries/dude')
+const {getPlebId} = require('../sqlqueries/role')
 
 
 router.post('/', async (request, response) => {
+    console.log('regging backend')
     try {
         const body = request.body
 
@@ -19,18 +21,22 @@ router.post('/', async (request, response) => {
         }
 
         const saltRounds = 10
-        const passwordHash = await bcrypt.hash(body.password, saltRounds)
+        const password = await bcrypt.hash(body.password, saltRounds)
 
-        const user = {
+        const dude = {
             username: body.username,
-            name: body.name,
-            roleid: body.adult,
-            passwordHash
+            password,
+            roleID: getPlebId()
         }
 
-        const savedUser = await user.save()
+        const savedDude = await dudequeries.insertDude(dude)
+        const loginToken = {
+            username: savedDude.username,
+            id: savedDude.id
+        }
+        const token = jwt.sign(loginToken, process.env.SECRET)
+        response.status(200).send({ token, username: dude.username })
 
-        response.json(User.format(savedUser))
     } catch (exception) {
         console.log(exception)
         response.status(500).json({ error: 'something went wrong...' })
