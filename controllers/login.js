@@ -2,7 +2,7 @@ const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const dudequeries = require('../sqlqueries/dude')
-const { getModId } = require('../sqlqueries/role')
+const {getModId} = require('../sqlqueries/role')
 
 router.post('/', async (request, response) => {
     console.log('loggin backend')

@@ -11,6 +11,7 @@ router.get('/', async (request, response) => {
 router.post('/', async (request, response) => {
     try {
         const token = request.token
+        console.log(request.body)
         const decodedToken = jwt.verify(token, process.env.SECRET)
 
         if (!token || decodedToken.roleid !== getModId()) {
@@ -32,6 +33,7 @@ router.post('/', async (request, response) => {
         const baked = await insertCategory(category)
         response.json(baked)
     } catch (exception) {
+        console.log(exception)
         return response.status(500).json({ error: 'uh oh server shat' })
     }
 

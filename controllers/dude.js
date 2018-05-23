@@ -2,8 +2,7 @@ const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const dudequeries = require('../sqlqueries/dude')
-const {getPlebId} = require('../sqlqueries/role')
-
+const { getPlebId, getModId } = require('../sqlqueries/role')
 
 router.post('/', async (request, response) => {
     console.log('regging backend')
@@ -26,7 +25,8 @@ router.post('/', async (request, response) => {
         const dude = {
             username: body.username,
             password,
-            roleID: getPlebId()
+            roleID: getPlebId(),
+            isMod: false
         }
 
         const savedDude = await dudequeries.insertDude(dude)
@@ -34,8 +34,7 @@ router.post('/', async (request, response) => {
         const loginToken = {
             username: savedDude.username,
             dudeid: savedDude.dudeid,
-            roleid: savedDude.roleid,
-            isMod: false
+            roleid: savedDude.roleid
         }
         const token = jwt.sign(loginToken, process.env.SECRET)
         response.status(200).send({ token, loginToken })
