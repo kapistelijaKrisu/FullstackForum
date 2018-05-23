@@ -21,6 +21,8 @@ const addData = async () => {
 
     const catVar1 = { name: 'categ1', description: 'dis a test category', creatorid: dude2.dudeid }
     const cat1 = await insertCategory(catVar1)
+    const catVar2 = { name: 'categ2', description: 'dis an another test category', creatorid: dude2.dudeid }
+    const cat2 = await insertCategory(catVar2)
 
     const postVar1 = { title: 'dis a forum post', content: 'dis is le content', creatorid: dude2.dudeid, categoryid: cat1.categoryid }
     const post1 = await insertForumpost(postVar1)
