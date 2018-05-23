@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const {secret} = require('../utils/config')
 const dudequeries = require('../sqlqueries/dude')
 const { getPlebId, getModId } = require('../sqlqueries/role')
 
@@ -36,7 +37,7 @@ router.post('/', async (request, response) => {
             dudeid: savedDude.dudeid,
             roleid: savedDude.roleid
         }
-        const token = jwt.sign(loginToken, process.env.SECRET)
+        const token = jwt.sign(loginToken, secret)
         response.status(200).send({ token, loginToken })
 
     } catch (exception) {

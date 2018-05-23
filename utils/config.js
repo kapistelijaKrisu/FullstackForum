@@ -16,11 +16,10 @@ if (process.env.NODE_ENV !== 'production') {
   db = process.env.DATABASE_URL
 }
 
-//sql tähä
-
-
+const secret =  process.env.SECRET
 
 module.exports = {
   port,
-  db
+  db,
+  secret
 }

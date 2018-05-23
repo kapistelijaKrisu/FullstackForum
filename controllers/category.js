@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
+const {secret} = require('../utils/config')
 const { findAll, insertCategory, findByName } = require('../sqlqueries/category')
 const { getModId } = require('../sqlqueries/role')
 
@@ -12,7 +13,7 @@ router.post('/', async (request, response) => {
     try {
         const token = request.token
         console.log(request.body)
-        const decodedToken = jwt.verify(token, process.env.SECRET)
+        const decodedToken = jwt.verify(token, secret)
 
         if (!token || decodedToken.roleid !== getModId()) {
             return response.status(401).json({ error: 'unauthorized' })
