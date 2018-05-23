@@ -34,7 +34,8 @@ router.post('/', async (request, response) => {
         const loginToken = {
             username: savedDude.username,
             dudeid: savedDude.dudeid,
-            roleid: savedDude.roleid
+            roleid: savedDude.roleid,
+            isMod: false
         }
         const token = jwt.sign(loginToken, process.env.SECRET)
         response.status(200).send({ token, loginToken })
