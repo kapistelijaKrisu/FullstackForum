@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
-const { findAll, insertCategory } = require('../sqlqueries/category')
+const { findAll, insertCategory, findByName } = require('../sqlqueries/category')
 const { getModId } = require('../sqlqueries/role')
 
 router.get('/', async (request, response) => {
@@ -9,23 +9,26 @@ router.get('/', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
-    const token = request.token
-    const decodedToken = jwt.verify(token, process.env.SECRET)
-
-    if (!token || decodedToken.roleid !== getModId()) {
-        return response.status(401).json({ error: 'unauthorized' })
-    }
-    const body = request.body
-    if (body.name.length < 3) {
-        return response.status(400).json({ error: 'name should be at least 3 cahracters long' })
-    }
-    if (body.description.length < 3) {
-        return response.status(400).json({ error: 'description should be at least 3 cahracters long' })
-    }
-
     try {
+        const token = request.token
+        const decodedToken = jwt.verify(token, process.env.SECRET)
+
+        if (!token || decodedToken.roleid !== getModId()) {
+            return response.status(401).json({ error: 'unauthorized' })
+        }
+        const body = request.body
+        if (body.name.length < 3) {
+            return response.status(400).json({ error: 'name should be at least 3 cahracters long' })
+        }
+        if (body.description.length < 3) {
+            return response.status(400).json({ error: 'description should be at least 3 cahracters long' })
+        }
+        if (await findByName(body.name)) {
+            return response.status(400).json({ error: 'Category of this name already exists' })
+        }
+
         let category = body
-        category.creatorid = decodedToken.id
+        category.creatorid = decodedToken.dudeid
         const baked = await insertCategory(category)
         response.json(baked)
     } catch (exception) {

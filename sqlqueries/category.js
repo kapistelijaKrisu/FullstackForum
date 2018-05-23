@@ -13,7 +13,7 @@ const findByID = async (categoryID) => {
 }
 
 const findByName = async (name) => {
-    const text = 'SELECT * FROM Category WHERE username = $1'
+    const text = 'SELECT * FROM Category WHERE name = $1'
     const { rows } = await pool.query(text, [name])
     return rows[0]
 }

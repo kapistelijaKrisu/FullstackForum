@@ -30,12 +30,14 @@ router.post('/', async (request, response) => {
         }
 
         const savedDude = await dudequeries.insertDude(dude)
+        console.log(savedDude)
         const loginToken = {
             username: savedDude.username,
-            id: savedDude.id
+            dudeid: savedDude.dudeid,
+            roleid: savedDude.roleid
         }
         const token = jwt.sign(loginToken, process.env.SECRET)
-        response.status(200).send({ token, username: dude.username })
+        response.status(200).send({ token, loginToken })
 
     } catch (exception) {
         console.log(exception)

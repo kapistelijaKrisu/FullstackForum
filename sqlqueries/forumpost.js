@@ -1,5 +1,11 @@
 const { pool } = require('../utils/dbpool')
 
+const findByID = async (forumpostid) => {
+    const text = 'SELECT * FROM Forumpost WHERE forumpostid = $1;'
+    const { rows } = await pool.query(text, [forumpostid])
+    return rows[0]
+}
+
 const findByCategoryId = async (categoryid) => {
     const text = 'SELECT * FROM Forumpost WHERE categoryid = $1;'
     const { rows } = await pool.query(text, [categoryid])
@@ -19,6 +25,7 @@ const insertForumpost = async (forumpost) => {
 }
 
 module.exports = {
+    findByID,
     insertForumpost,
     findByDudeId,
     findByCategoryId
