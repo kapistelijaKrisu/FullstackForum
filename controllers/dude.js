@@ -6,7 +6,6 @@ const dudequeries = require('../sqlqueries/dude')
 const { getPlebId, getModId } = require('../sqlqueries/role')
 
 router.post('/', async (request, response) => {
-    console.log('regging backend')
     try {
         const body = request.body
 
@@ -31,7 +30,7 @@ router.post('/', async (request, response) => {
         }
 
         const savedDude = await dudequeries.insertDude(dude)
-        console.log(savedDude)
+
         const loginToken = {
             username: savedDude.username,
             dudeid: savedDude.dudeid,

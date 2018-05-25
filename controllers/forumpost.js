@@ -44,7 +44,7 @@ router.post('/', async (request, response) => {
 
     try {
         let forumpost = body
-        forumpost.creatorid = decodedToken.roleid
+        forumpost.creatorid = decodedToken.dudeid
         const baked = await insertForumpost(forumpost)
         response.json(baked)
     } catch (exception) {

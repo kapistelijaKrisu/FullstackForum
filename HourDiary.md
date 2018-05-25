@@ -8,3 +8,4 @@
 | 22.5  | 7    | määrittele kanta ja kontrollerit sekä logini
 | 23.5  | 8    | kontrollerit loppuun ja fronttia
 | 24.5  | 1    | frontin routet fixattu
+| 24.5  | 3    | yksittäisen postin sivu, kättäjän sivu, notifikaatio

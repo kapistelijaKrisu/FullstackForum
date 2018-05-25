@@ -6,12 +6,9 @@ const dudequeries = require('../sqlqueries/dude')
 const {getModId} = require('../sqlqueries/role')
 
 router.post('/', async (request, response) => {
-    console.log('loggin backend')
     try {
         const credentials = request.body
-        console.log(credentials)
         const dude = await dudequeries.findByNick(credentials.username)
-     console.log(dude)
         const passwordCorrect = dude === null ?
             false : await bcrypt.compare(credentials.password, dude.password)
 
@@ -25,8 +22,8 @@ router.post('/', async (request, response) => {
             roleid: dude.roleid,
             isMod: dude.roleid===getModId()
         }
+        console.log(loginToken)
         const token = jwt.sign(loginToken, secret)
-
         response.status(200).send({ token, loginToken })
 
     } catch (exception) {
