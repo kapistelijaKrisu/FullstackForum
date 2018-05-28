@@ -24,11 +24,13 @@ const addData = async () => {
     const catVar2 = { name: 'categ2', description: 'dis an another test category', creatorid: dude2.dudeid }
     const cat2 = await insertCategory(catVar2)
 
-    const postVar1 = { title: 'dis a forum post', content: 'dis is le content', creatorid: dude2.dudeid, categoryid: cat1.categoryid }
+    const postVar1 = { title: 'dis a forum post', content: 'dis is le post content', creatorid: dude2.dudeid, categoryid: cat1.categoryid }
+    const postVar2 = { title: 'dis a forum post2', content: 'dis has empty content, no comments either', creatorid: dude1.dudeid, categoryid: cat1.categoryid }
     const post1 = await insertForumpost(postVar1)
+    const post2 = await insertForumpost(postVar2)
 
-    const comvar1= {content: 'dis my coment', creatorid: dude1.dudeid, forumpostid: post1.forumpostid}
-    const comvar2= {content: 'dis my 2nd coment', creatorid: dude1.dudeid, forumpostid: post1.forumpostid}
+    const comvar1= {content: 'dis is a comment', creatorid: dude2.dudeid, forumpostid: post1.forumpostid}
+    const comvar2= {content: 'dis is a 2nd coment', creatorid: dude1.dudeid, forumpostid: post1.forumpostid}
     const com1 = await insertComment(comvar1)
     const com2 = await insertComment(comvar2)
 }

@@ -10,3 +10,6 @@
 | 24.5  | 1    | frontin routet fixattu
 | 24.5  | 3    | yksittäisen postin sivu, kättäjän sivu, notifikaatio
 | 25.5  | 6    | bugikorjaukset ja ulkoasua
+| 26.5  | 1    | ulkoasua
+| 28.5  | 2    | ulkoasua
+| 29.5  | xxx  | forumpostin muokkaus sql ja frontti
