@@ -2,7 +2,7 @@ const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const {secret} = require('../utils/config')
 const { findByForumpostId, findByDudeId, insertComment } = require('../sqlqueries/comment')
-const { findByID } = require('../sqlqueries/forumpost')
+const { findForumpost } = require('../sqlqueries/forumpost')
 
 router.get('/forumpost/:forumpostid', async (request, response) => {
     try {
@@ -35,7 +35,7 @@ router.post('/', async (request, response) => {
     if (!body.forumpostid) {
         return response.status(400).json({ error: 'choose the post u r commenting please' })
     }
-    if (!await findByID(body.forumpostid)) {
+    if (!await findForumpost(body.forumpostid)) {
         return response.status(400).json({ error: 'this post does not exist' })
     }
 

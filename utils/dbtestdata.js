@@ -28,7 +28,9 @@ const addData = async () => {
     const post1 = await insertForumpost(postVar1)
 
     const comvar1= {content: 'dis my coment', creatorid: dude1.dudeid, forumpostid: post1.forumpostid}
+    const comvar2= {content: 'dis my 2nd coment', creatorid: dude1.dudeid, forumpostid: post1.forumpostid}
     const com1 = await insertComment(comvar1)
+    const com2 = await insertComment(comvar2)
 }
 
 module.exports = {

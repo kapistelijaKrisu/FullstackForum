@@ -1,8 +1,19 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const {secret} = require('../utils/config')
-const { findByCategoryId, findByDudeId, insertForumpost } = require('../sqlqueries/forumpost')
+const { findByCategoryId, findByDudeId, insertForumpost, findForumpost } = require('../sqlqueries/forumpost')
 const { findByID, findAll } = require('../sqlqueries/category')
+
+router.get('/:forumpostid', async (request, response) => {
+    console.log('enter')
+    try {
+        const forumpost = await findForumpost(request.params.forumpostid)
+        response.json(forumpost)
+    } catch (exception) {
+        console.log(exception)
+        return response.status(400).json({ error: 'url incorrect' })
+    }
+})
 
 router.get('/category/:categoryid', async (request, response) => {
     try {
