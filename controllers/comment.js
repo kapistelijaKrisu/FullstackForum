@@ -22,6 +22,7 @@ router.get('/dude/:dudeid', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
+    try {
     const token = request.token
     const decodedToken = jwt.verify(token, secret)
 
@@ -40,7 +41,7 @@ router.post('/', async (request, response) => {
     }
 
 
-    try {
+    
         let comment = body
         comment.creatorid = decodedToken.dudeid
         const baked = await insertComment(comment)
