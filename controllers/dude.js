@@ -14,7 +14,6 @@ router.post('/', async (request, response) => {
         }
 
         const existingDude = await dudequeries.findByNick(body.username)
-        console.log(existingDude)
         if (existingDude) {
             return response.status(400).json({ error: 'username must be unique' })
         }

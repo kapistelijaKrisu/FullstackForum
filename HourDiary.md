@@ -12,4 +12,4 @@
 | 25.5  | 6    | bugikorjaukset ja ulkoasua
 | 26.5  | 1    | ulkoasua
 | 28.5  | 2    | ulkoasua
-| 29.5  | xxx  | forumpostin muokkaus sql ja frontti
+| 29.5  | 7    | forumpostin muokkaus sql ja frontti

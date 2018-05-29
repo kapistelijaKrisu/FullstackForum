@@ -2,16 +2,17 @@ const { pool } = require('../utils/dbpool')
 
 const findForumpost = async (forumpostid) => {
     const text = 'SELECT'
-   + ' p.forumpostid, p.title, p.creatorid AS postcreator, p.categoryid, '
-   + ' c.commentid, c.content AS commentcontent, c.creatorid AS commentcreator,'
-   + ' cat.name AS categoryname,'
-   + ' d.username AS commentcreatorname'
-    
-   + ' FROM Forumpost p '
-   + ' LEFT JOIN Comment c ON p.forumpostid = c.forumpostid'
-   + ' LEFT JOIN Category cat ON p.categoryid = cat.categoryid' 
-   + ' LEFT JOIN Dude d ON c.creatorid = d.dudeid'
-   + ' WHERE p.forumpostid = $1;'
+        + ' p.forumpostid, p.title, p.creatorid AS postcreator, p.categoryid, '
+        + ' c.commentid, c.content AS commentcontent, c.creatorid AS commentcreator, c.posttime, '
+        + ' cat.name AS categoryname,'
+        + ' d.username AS commentcreatorname'
+
+        + ' FROM Forumpost p '
+        + ' LEFT JOIN Comment c ON p.forumpostid = c.forumpostid'
+        + ' LEFT JOIN Category cat ON p.categoryid = cat.categoryid'
+        + ' LEFT JOIN Dude d ON c.creatorid = d.dudeid'
+        + ' WHERE p.forumpostid = $1'
+        + ' ORDER BY c.posttime ASC;'
 
     const query = {
         text: text,
@@ -27,7 +28,6 @@ const findForumpost = async (forumpostid) => {
         categoryname: rows[0].categoryname,
         comments: []
     }
-    console.log(post)
     if (rows[0].commentid === null) {
         return post
     }
@@ -36,16 +36,24 @@ const findForumpost = async (forumpostid) => {
             commentid: row.commentid,
             content: row.commentcontent,
             creatorid: row.commentcreator,
-            creatorname: rows[0].commentcreatorname,
+            creatorname: row.commentcreatorname,
+            posttime: row.posttime
 
         })
     })
     return post
 }
 
+//must have at least 1 comment to work
 const findByCategoryId = async (categoryid) => {
-    const text = 'SELECT * FROM Forumpost WHERE categoryid = $1;'
+    const text = 'SELECT f.forumpostid, f.title, f.creatorid, f.categoryid FROM Forumpost f '
+    + 'JOIN Comment c ON f.forumpostid=c.forumpostid' 
+    +' WHERE f.categoryid = $1'
+    +' GROUP BY f.forumpostid'
+    +' ORDER BY max(c.posttime) DESC '
+    
     const { rows } = await pool.query(text, [categoryid])
+    console.log(rows)
     return rows
 }
 const findByDudeId = async (dudeId) => {

@@ -44,7 +44,8 @@ router.post('/', async (request, response) => {
     
         let comment = body
         comment.creatorid = decodedToken.dudeid
-        const baked = await insertComment(comment)
+        let baked = await insertComment(comment)
+        baked.creatorname = decodedToken.username
         response.json(baked)
     } catch (exception) {
         console.log(exception)

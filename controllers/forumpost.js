@@ -21,6 +21,7 @@ router.get('/category/:categoryid', async (request, response) => {
         const forumposts = await findByCategoryId(request.params.categoryid)
         response.json(forumposts)
     } catch (exception) {
+        console.log(exception)
         return response.status(400).json({ error: 'url incorrect' })
     }
 })

@@ -79,6 +79,7 @@ const initCommentTable = async (client) => {
         + 'content varchar(1023) NOT NULL, '
         + 'creatorID int NOT NULL, '
         + 'forumpostID int NOT NULL, '
+        + 'posttime timestamp NOT NULL, '
         + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID), '
         + 'FOREIGN KEY (forumpostID) REFERENCES Forumpost(forumpostID)'
         + '); '

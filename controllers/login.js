@@ -22,7 +22,6 @@ router.post('/', async (request, response) => {
             roleid: dude.roleid,
             isMod: dude.roleid===getModId()
         }
-        console.log(loginToken)
         const token = jwt.sign(loginToken, secret)
         response.status(200).send({ token, loginToken })
 
