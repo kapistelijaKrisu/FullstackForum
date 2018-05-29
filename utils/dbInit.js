@@ -66,7 +66,6 @@ const initForumPostTable = async (client) => {
     const text = 'CREATE TABLE Forumpost ('
         + 'forumpostID SERIAL NOT NULL PRIMARY KEY, '
         + 'title varchar(31) NOT NULL, '
-        + 'content varchar(1023) NOT NULL, '
         + 'creatorID int NOT NULL, '
         + 'categoryID int NOT NULL, '
         + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID), '

@@ -1,31 +1,42 @@
 const { pool } = require('../utils/dbpool')
 
 const findForumpost = async (forumpostid) => {
-    const text = 'SELECT p.forumpostid, p.title, p.content AS postcontent, p.creatorid AS postcreator, p.categoryid, c.commentid, c.content AS commentcontent, c.creatorid AS commentcreator FROM Forumpost p  LEFT JOIN Comment c ON p.forumpostid = c.forumpostid WHERE p.forumpostid = $1;'
-   
-           //       SELECT (vg.id,name) FROM v_groups vg  inner join people2v_groups p2vg on vg.id = p2vg.v_group_id where p2vg.people_id =0;
-           const query = {
-            text: text,
-            values: [forumpostid]
-          };
+    const text = 'SELECT'
+   + ' p.forumpostid, p.title, p.creatorid AS postcreator, p.categoryid, '
+   + ' c.commentid, c.content AS commentcontent, c.creatorid AS commentcreator,'
+   + ' cat.name AS categoryname,'
+   + ' d.username AS commentcreatorname'
+    
+   + ' FROM Forumpost p '
+   + ' LEFT JOIN Comment c ON p.forumpostid = c.forumpostid'
+   + ' LEFT JOIN Category cat ON p.categoryid = cat.categoryid' 
+   + ' LEFT JOIN Dude d ON c.creatorid = d.dudeid'
+   + ' WHERE p.forumpostid = $1;'
+
+    const query = {
+        text: text,
+        values: [forumpostid]
+    };
     const { rows } = await pool.query(query)
-   
+
     let post = {
         forumpostid: rows[0].forumpostid,
         title: rows[0].title,
-        content: rows[0].postcontent,
         creatorid: rows[0].postcreator,
         categoryid: rows[0].categoryid,
+        categoryname: rows[0].categoryname,
         comments: []
     }
+    console.log(post)
     if (rows[0].commentid === null) {
         return post
     }
     rows.forEach(row => {
-        post.comments=post.comments.concat({
-            commentid:row.commentid,
-            content:row.commentcontent,
-            creatorid:row.commentcreator
+        post.comments = post.comments.concat({
+            commentid: row.commentid,
+            content: row.commentcontent,
+            creatorid: row.commentcreator,
+            creatorname: rows[0].commentcreatorname,
 
         })
     })
@@ -44,8 +55,8 @@ const findByDudeId = async (dudeId) => {
 }
 
 const insertForumpost = async (forumpost) => {
-    const text = 'INSERT INTO Forumpost(title, content, creatorid, categoryid) VALUES($1, $2, $3, $4) RETURNING * ;'
-    const values = [forumpost.title, forumpost.content, forumpost.creatorid, forumpost.categoryid]
+    const text = 'INSERT INTO Forumpost(title, creatorid, categoryid) VALUES($1, $2, $3) RETURNING * ;'
+    const values = [forumpost.title, forumpost.creatorid, forumpost.categoryid]
     const { rows } = await pool.query(text, values)
     return rows[0]
 }
