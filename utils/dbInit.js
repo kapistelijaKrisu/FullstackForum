@@ -116,7 +116,7 @@ const initMod = async () => {
     }
     console.log(modDude)
 
-    const modder = null
+    let modder = null
     await findByNick(modDude.username) ?
         console.log('this username is already taken') :
         modder = await insertDude(modDude)
