@@ -29,11 +29,10 @@ const dbcreation = async () => {
             await addData()
             console.log('Test data has been added')
         }
-        await initMod(client)
-
     } catch (e) {
         console.log('db init failed', e.stack)
     } finally {
+        await initMod(client)
         client.release()
     }
 
