@@ -9,9 +9,9 @@ const bcrypt = require('bcrypt')
 const dbcreation = async () => {
     console.log('checking for database')
     const client = await pool.connect()
-    if (process.env.NODE_ENV !== 'production') {
+   // if (process.env.NODE_ENV !== 'production') {
         await refreshDataBase(client)
-    }
+   // }
 
     try {
         await initRoleTable(client)
