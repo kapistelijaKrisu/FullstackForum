@@ -112,7 +112,7 @@ const initMod = async () => {
     const modDude = {
         username: modtokened[0],
         password: await bcrypt.hash(modtokened[1], saltRounds),
-        roleid: getModId()
+        roleID: getModId()
     }
     console.log(modDude)
 
