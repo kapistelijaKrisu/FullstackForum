@@ -8,6 +8,7 @@
 -background black
 -review sql.png to match current state
 -initial mod variable to .env and to heroku variable
+- category page of undefined to throw error
 
 after summer
 -tests

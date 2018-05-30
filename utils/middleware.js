@@ -11,7 +11,8 @@ const logger = (request, response, next) => {
 }
 
 const error = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
+ // response.status(404).send({ error: 'unknown endpoint' })
+ next()
 }
 
 const tokenExtractor = (request, response, next) => {
