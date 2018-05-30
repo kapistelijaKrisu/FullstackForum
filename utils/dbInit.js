@@ -1,6 +1,10 @@
 const { pool } = require('./dbpool')
+const { mod } = require('./config')
 const { addData } = require('./dbtestdata')
-const { plebId, modId, initRoles } = require('../sqlqueries/role')
+const { getModId, initRoles } = require('../sqlqueries/role')
+const { findByNick, insertDude } = require('../sqlqueries/dude')
+const bcrypt = require('bcrypt')
+
 
 const dbcreation = async () => {
     console.log('checking for database')
@@ -25,6 +29,7 @@ const dbcreation = async () => {
             await addData()
             console.log('Test data has been added')
         }
+        await initMod(client)
 
     } catch (e) {
         console.log('db init failed', e.stack)
@@ -100,6 +105,20 @@ const dropTable = async (client, text) => {
     } catch (e) {
         //     console.log(e.stack)
     }
+}
+
+const initMod = async () => {
+    const saltRounds = 10
+    const modtokened = mod.split(":")
+    const modDude = {
+        username: modtokened[0],
+        password: await bcrypt.hash(modtokened[1], saltRounds),
+        roleid: getModId()
+    }
+
+    await findByNick(modDude.username) ?
+        console.log('this username is already taken') :
+        await insertDude()
 }
 
 dbcreation()

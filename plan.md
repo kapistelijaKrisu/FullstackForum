@@ -7,6 +7,7 @@
 -edit category/forumposts/comments
 -background black
 -review sql.png to match current state
+-initial mod variable to .env and to heroku variable
 
 after summer
 -tests

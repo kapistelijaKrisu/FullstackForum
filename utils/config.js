@@ -14,12 +14,14 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   port = process.env.PORT
   db = process.env.DATABASE_URL
+ 
 }
-
+const mod = process.env.SECRET_MOD
 const secret =  process.env.SECRET
 
 module.exports = {
   port,
   db,
-  secret
+  secret,
+  mod
 }
