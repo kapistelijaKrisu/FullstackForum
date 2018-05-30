@@ -1,5 +1,6 @@
 const http = require('http')
 const express = require('express')
+const path = require('path');
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -16,7 +17,7 @@ const commentRouter = require('./controllers/comment')
 app.use(cors())
 app.use(bodyParser.json())
 //app.use(express.static('build'))
-app.use(express.static(process.env.PWD+"/build"));
+app.use(express.static(path.join(__dirname, 'client/build')))
 app.get("/build",function() {});
 
 app.use(middleware.logger)
