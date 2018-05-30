@@ -13,3 +13,4 @@
 | 26.5  | 1    | ulkoasua
 | 28.5  | 2    | ulkoasua
 | 29.5  | 7    | forumpostin muokkaus sql ja frontti
+| 30.5  | 3    | heroku toimii statikin kans, xtra detailii kommentteihin

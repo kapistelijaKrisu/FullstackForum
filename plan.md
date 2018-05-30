@@ -1,16 +1,18 @@
--views to post
+priority before submit
+-throw user friendly notifications on posts
+-category page of undefined to throw error
+-background black
+-review sql.png to match current state
+
+optional before submit
 -postcountto category
 -paging
 -order categories alphabetically
--lock posts
--delete posts (not comments)
+-delete posts (comments with them comments)
 -edit category/forumposts/comments
--background black
--review sql.png to match current state
--initial mod variable to .env and to heroku variable
-- category page of undefined to throw error
 
 after summer
+-lock posts if mod rights
 -tests
 -lint
 -possibly abstract components that look alike
