@@ -115,10 +115,14 @@ const initMod = async () => {
         password: await bcrypt.hash(modtokened[1], saltRounds),
         roleid: getModId()
     }
+    console.log(modDude)
 
+    const modder = null
     await findByNick(modDude.username) ?
         console.log('this username is already taken') :
-        await insertDude()
+        modder = await insertDude()
+
+        console.log(modder)
 }
 
 dbcreation()
