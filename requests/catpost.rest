@@ -1,5 +1,5 @@
 POST http://localhost:3002/api/category/
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vZCIsImR1ZGVpZCI6MSwicm9sZWlkIjoyLCJpYXQiOjE1MjcwNzYxNTZ9.b-Z7KZWmWjYjfghxSNCDduw4vRqzen2IwBcQ6rhA3Jk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vZCIsImR1ZGVpZCI6MSwicm9sZWlkIjoyLCJpYXQiOjE1MjcwNzczODB9.71QbauIIrxPSUvxR3kXFCPJjwAOAy6KcTad14Yb26pc
 Content-Type: application/json
 
 {

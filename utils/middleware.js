@@ -10,7 +10,7 @@ const logger = (request, response, next) => {
   next()
 }
 
-const error = (request, response) => {
+const error = (request, response, next) => {
  // response.status(404).send({ error: 'unknown endpoint' })
  next()
 }
