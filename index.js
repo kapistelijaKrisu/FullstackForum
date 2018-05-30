@@ -15,7 +15,9 @@ const commentRouter = require('./controllers/comment')
 
 app.use(cors())
 app.use(bodyParser.json())
-app.use(express.static('build'))
+//app.use(express.static('build'))
+app.use(express.static(process.env.PWD+"/build"));
+app.get("/build",function() {});
 
 app.use(middleware.logger)
 app.use(middleware.tokenExtractor)
