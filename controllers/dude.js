@@ -24,7 +24,7 @@ router.post('/', async (request, response) => {
         const dude = {
             username: body.username,
             password,
-            roleID: getPlebId(),
+            roleid: getPlebId(),
             isMod: false
         }
 

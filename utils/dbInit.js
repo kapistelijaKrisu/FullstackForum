@@ -40,7 +40,7 @@ const dbcreation = async () => {
 
 const initRoleTable = async (client) => {
     const text = 'CREATE TABLE Role ('
-        + 'roleID SERIAL PRIMARY KEY, '
+        + 'roleid SERIAL PRIMARY KEY, '
         + 'role varchar(31) NOT NULL UNIQUE '
         + '); '
     await client.query(text)
@@ -51,8 +51,8 @@ const initDudeTable = async (client) => {
         + 'dudeID SERIAL NOT NULL PRIMARY KEY, '
         + 'username varchar(31) NOT NULL UNIQUE, '
         + 'password varchar(127) NOT NULL, '
-        + 'roleID int NOT NULL, '
-        + 'FOREIGN KEY (roleID) REFERENCES Role(roleID)'
+        + 'roleid int NOT NULL, '
+        + 'FOREIGN KEY (roleid) REFERENCES Role(roleid)'
         + '); '
     await client.query(text)
 }
@@ -112,7 +112,7 @@ const initMod = async () => {
     const modDude = {
         username: modtokened[0],
         password: await bcrypt.hash(modtokened[1], saltRounds),
-        roleID: getModId()
+        roleid: getModId()
     }
     console.log(modDude)
 
