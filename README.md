@@ -3,7 +3,7 @@
 ## Description
 Classic type of basic forum. </br>
 Reasons to do this: </br>
-- Was to learn pg (postgres) with node </br>
+- Learn to use sql database in javascript (postgres, pg api) </br>
 - Get more familiar with css </br>
 - Master spa redirecting </br>
 - Make JSON my best friend </br>
