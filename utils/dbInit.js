@@ -24,11 +24,11 @@ const dbcreation = async () => {
 
         console.log('Database tables are up')
 
-        if (process.env.NODE_ENV !== 'production') {
+       // if (process.env.NODE_ENV !== 'production') {
             console.log('adding test data..')
             await addData()
             console.log('Test data has been added')
-        }
+      //  }
     } catch (e) {
         console.log('db init failed', e.stack)
     } finally {
