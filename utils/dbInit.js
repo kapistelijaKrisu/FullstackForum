@@ -9,9 +9,9 @@ const bcrypt = require('bcrypt')
 const dbcreation = async () => {
     console.log('checking for database')
     const client = await pool.connect()
-   // if (process.env.NODE_ENV !== 'production') {
-        await refreshDataBase(client)
-   // }
+    // if (process.env.NODE_ENV !== 'production') {
+    await refreshDataBase(client)
+    // }
 
     try {
         await initRoleTable(client)
@@ -24,15 +24,19 @@ const dbcreation = async () => {
 
         console.log('Tables have been set')
 
-     //   if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== 'production') {
             console.log('adding test data..')
             await addData()
             console.log('Test data has been added')
-      //  }
+        }
     } catch (e) {
         console.log('db init failed', e.stack)
     } finally {
-        await initMod(client)
+        try {
+            await initMod(client)
+        } catch (exception) {
+            console.log('unknown error in initing mod', exception)
+        }
         client.release()
     }
 
