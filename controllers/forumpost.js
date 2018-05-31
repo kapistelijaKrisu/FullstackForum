@@ -49,11 +49,11 @@ router.post('/', async (request, response) => {
         if (!await findByID(body.categoryid)) {
             return response.status(400).json({ error: 'this category does not exist' })
         }
-        if (body.title.length < 3) {
-            return response.status(400).json({ error: 'title should be at least 3 characters long' })
+        if (body.title.length < 2) {
+            return response.status(400).json({ error: 'title should be at least 2 characters long' })
         }
-        if (body.content.length < 3) {
-            return response.status(400).json({ error: 'content should be at least 3 characters long' })
+        if (body.content.length < 2) {
+            return response.status(400).json({ error: 'content should be at least 2 characters long' })
         }
 
 

@@ -53,7 +53,6 @@ const findByCategoryId = async (categoryid) => {
     +' ORDER BY max(c.posttime) DESC '
     
     const { rows } = await pool.query(text, [categoryid])
-    console.log(rows)
     return rows
 }
 const findByDudeId = async (dudeId) => {

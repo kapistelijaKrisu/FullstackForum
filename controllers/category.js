@@ -18,11 +18,11 @@ router.post('/', async (request, response) => {
             return response.status(401).json({ error: 'unauthorized' })
         }
         const body = request.body
-        if (body.name.length < 3) {
-            return response.status(400).json({ error: 'name should be at least 3 cahracters long' })
+        if (body.name.length < 2) {
+            return response.status(400).json({ error: 'name should be at least 2 characters long' })
         }
-        if (body.description.length < 3) {
-            return response.status(400).json({ error: 'description should be at least 3 cahracters long' })
+        if (body.description.length < 2) {
+            return response.status(400).json({ error: 'description should be at least 2 characters long' })
         }
         if (await findByName(body.name)) {
             return response.status(400).json({ error: 'Category of this name already exists' })
