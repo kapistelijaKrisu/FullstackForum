@@ -1,7 +1,7 @@
 const { pool } = require('../utils/dbpool')
 
 const findAll = async () => {
-    const text = 'SELECT * FROM Category'
+    const text = 'SELECT * FROM Category ORDER BY Category.name ASC'
     const { rows } = await pool.query(text)
     return rows
 }
