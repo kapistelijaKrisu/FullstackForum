@@ -9,9 +9,9 @@ const bcrypt = require('bcrypt')
 const dbcreation = async () => {
     console.log('checking for database')
     const client = await pool.connect()
-     if (process.env.NODE_ENV !== 'production') {
+  //   if (process.env.NODE_ENV !== 'production') {
     await dropDBtables(client)
-     }
+   //  }
 
     try {
         await initRoleTable(client)
@@ -30,7 +30,7 @@ const dbcreation = async () => {
             console.log('Test data has been added')
       //  }
     } catch (e) {
-        console.log('db init failed', e.stack)
+        console.log('db init failed', e)
     } finally {
         try {
             await initMod(client)
