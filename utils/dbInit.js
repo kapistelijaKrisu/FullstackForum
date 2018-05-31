@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt')
 
 const dbcreation = async () => {
     //change here once for setting up production 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'production') {
         const client = await pool.connect()
         const dude = await findByID(1)
         console.log('dude', dude)
