@@ -12,7 +12,7 @@ const dbcreation = async () => {
         const client = await pool.connect()
         const dude = await findByID(1)
         console.log('dude', dude)
-        console.log(getModId)
+        console.log(getModId())
         try {
       /*      
             await dropDBtables(client)
