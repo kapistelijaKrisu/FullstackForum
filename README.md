@@ -1,8 +1,8 @@
 # FullstackForum
 </br>
-https://forumleforum.herokuapp.com/
+to heroku live version https://forumleforum.herokuapp.com/
 </br>
-later doc
+to frontend https://github.com/kapistelijaKrisu/forumFront
 </br>
-later hour diary
+hour diary https://github.com/kapistelijaKrisu/FullstackForum/blob/master/HourDiary.md
 </br>
