@@ -2,7 +2,7 @@ const { pool } = require('./dbpool')
 const { mod } = require('./config')
 const { addData } = require('./dbtestdata')
 const { getModId, initRoles } = require('../sqlqueries/role')
-const { findByNick, insertDude } = require('../sqlqueries/dude')
+const { findByNick, insertDude, findByID } = require('../sqlqueries/dude')
 const bcrypt = require('bcrypt')
 
 
@@ -10,8 +10,11 @@ const dbcreation = async () => {
     //change here once for setting up production 
     if (process.env.NODE_ENV !== 'production') {
         const client = await pool.connect()
+        const dude = await findByID(1)
+        console.log('dude', dude)
+        console.log(getModId)
         try {
-            
+      /*      
             await dropDBtables(client)
 
             console.log('Setting up database tables...')
@@ -28,7 +31,7 @@ const dbcreation = async () => {
             await initMod(client)
             await addData()
             console.log('Test data has been added')
-
+*/
         } catch (e) {
             console.log('db init failed', e)
         } finally {
