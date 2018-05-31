@@ -9,9 +9,9 @@ const bcrypt = require('bcrypt')
 const dbcreation = async () => {
     console.log('checking for database')
     const client = await pool.connect()
-    // if (process.env.NODE_ENV !== 'production') {
-    await refreshDataBase(client)
-    // }
+     if (process.env.NODE_ENV !== 'production') {
+    await dropDBtables(client)
+     }
 
     try {
         await initRoleTable(client)
@@ -22,7 +22,7 @@ const dbcreation = async () => {
         await initForumPostTable(client)
         await initCommentTable(client)
 
-        console.log('Tables have been set')
+        console.log('Database tables are up')
 
         if (process.env.NODE_ENV !== 'production') {
             console.log('adding test data..')
@@ -94,7 +94,8 @@ const initCommentTable = async (client) => {
     await client.query(text)
 }
 
-const refreshDataBase = async (client) => {
+const dropDBtables = async (client) => {
+    console.log('dropping tables')
     await dropTable(client, 'DROP TABLE Comment')
     await dropTable(client, 'DROP TABLE Forumpost')
     await dropTable(client, 'DROP TABLE Category')
