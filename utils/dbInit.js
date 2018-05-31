@@ -7,37 +7,35 @@ const bcrypt = require('bcrypt')
 
 
 const dbcreation = async () => {
-    console.log('checking for database')
-    const client = await pool.connect()
-    //   if (process.env.NODE_ENV !== 'production') {
-    await dropDBtables(client)
-    //  }
+    //change here once for setting up production 
+    if (process.env.NODE_ENV !== 'production') {
+        const client = await pool.connect()
+        try {
+            
+            await dropDBtables(client)
 
-    try {
-        await initRoleTable(client)
-        await initRoles(client)
-        await initRoles(client)
-        await initDudeTable(client)
-        await initCategoryTable(client)
-        await initForumPostTable(client)
-        await initCommentTable(client)
+            console.log('Setting up database tables...')
+            await initRoleTable(client)
+            await initRoles(client)
+            await initRoles(client)
+            await initDudeTable(client)
+            await initCategoryTable(client)
+            await initForumPostTable(client)
+            await initCommentTable(client)
 
-        console.log('Database tables are up')
+            console.log('Database tables are up')
+            console.log('adding test data..')
+            await initMod(client)
+            await addData()
+            console.log('Test data has been added')
 
-        // if (process.env.NODE_ENV !== 'production') {
-        await initMod(client)
-        console.log('adding test data..')
-        await addData()
-        console.log('Test data has been added')
-        //  }
-    } catch (e) {
-        console.log('db init failed', e)
-    } finally {
-        client.release()
+        } catch (e) {
+            console.log('db init failed', e)
+        } finally {
+            client.release()
+        }
     }
-
 }
-
 const initRoleTable = async (client) => {
     const text = 'CREATE TABLE Role ('
         + 'roleid SERIAL PRIMARY KEY, '
@@ -91,7 +89,7 @@ const initCommentTable = async (client) => {
 }
 
 const dropDBtables = async (client) => {
-    console.log('dropping tables')
+    console.log('Dropping database tables')
     await dropTable(client, 'DROP TABLE Comment')
     await dropTable(client, 'DROP TABLE Forumpost')
     await dropTable(client, 'DROP TABLE Category')
