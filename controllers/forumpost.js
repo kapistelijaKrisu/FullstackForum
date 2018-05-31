@@ -4,6 +4,7 @@ const { secret } = require('../utils/config')
 const { findByCategoryId, findByDudeId, insertForumpost, findForumpost } = require('../sqlqueries/forumpost')
 const { findByID, findAll } = require('../sqlqueries/category')
 const { insertComment } = require('../sqlqueries/comment')
+const { isInLength } = require('../utils/validation')
 
 router.get('/:forumpostid', async (request, response) => {
     try {
@@ -42,18 +43,20 @@ router.post('/', async (request, response) => {
         if (!token || !decodedToken.roleid) {
             return response.status(401).json({ error: 'login please before posting' })
         }
-        const body = request.body
+        let body = request.body
+        body.content = body.content.trim()
+        body.title = body.title.trim()
         if (!body.categoryid) {
             return response.status(400).json({ error: 'choose a category for this post please' })
         }
         if (!await findByID(body.categoryid)) {
             return response.status(400).json({ error: 'this category does not exist' })
         }
-        if (body.title.length < 2) {
-            return response.status(400).json({ error: 'title should be at least 2 characters long' })
+        if (!isInLength(2, 31, true, body.title)) {
+            return response.status(400).json({ error: 'title should 2-31 characters long' })
         }
-        if (body.content.length < 2) {
-            return response.status(400).json({ error: 'content should be at least 2 characters long' })
+        if (!isInLength(2, 1023, true, body.content)) {
+            return response.status(400).json({ error: 'content should be 2-1023 characters long' })
         }
 
 

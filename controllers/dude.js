@@ -1,16 +1,22 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const {secret} = require('../utils/config')
+const { secret } = require('../utils/config')
 const dudequeries = require('../sqlqueries/dude')
 const { getPlebId, getModId } = require('../sqlqueries/role')
+const { isInLength } = require('../utils/validation')
 
 router.post('/', async (request, response) => {
     try {
-        const body = request.body
+        let body = request.body
+        body.username = body.username.trim()
+        body.password = body.password.trim()
 
-        if (body.password.length < 3) {
-            return response.status(400).json({ error: 'password has to be at least 3 characters long!' })
+        if (!isInLength(3, 31, false, body.password)) {
+            return response.status(400).json({ error: 'password has to be 3-31 characters long!' })
+        }
+        if (!isInLength(3, 31, false, body.username)) {
+            return response.status(400).json({ error: 'username has to be 3-31 characters long!' })
         }
 
         const existingDude = await dudequeries.findByNick(body.username)

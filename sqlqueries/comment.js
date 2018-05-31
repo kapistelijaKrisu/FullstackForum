@@ -15,7 +15,6 @@ const insertComment = async (comment) => {
     const text = 'INSERT INTO Comment(content, creatorid, forumpostid, posttime) VALUES($1, $2, $3, now()) RETURNING * ;'
     const values = [comment.content, comment.creatorid, comment.forumpostid]
     const { rows } = await pool.query(text, values)
-    console.log(rows[0])
     return rows[0]
 }
 
