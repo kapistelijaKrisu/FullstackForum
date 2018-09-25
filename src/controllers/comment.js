@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
-const { secret } = require('../utils/config')
-const { findByForumpostId, findByDudeId, insertComment } = require('../sqlqueries/comment')
-const { findForumpost } = require('../sqlqueries/forumpost')
+const { secret } = require('../config/api_config')
+const { findByForumpostId, findByDudeId, insertComment } = require('../model/comment')
+const { findForumpost } = require('../model/forumpost')
 const { isInLength } = require('../utils/validation')
 
 router.get('/forumpost/:forumpostid', async (request, response) => {

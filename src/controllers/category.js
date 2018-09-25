@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
-const { secret } = require('../utils/config')
-const { findAll, insertCategory, findByName } = require('../sqlqueries/category')
-const { getModId } = require('../sqlqueries/role')
+const { secret } = require('../config/api_config')
+const { findAll, insertCategory, findByName } = require('../model/category')
+const { getModId } = require('../model/role')
 const { isInLength } = require('../utils/validation')
 
 router.get('/', async (request, response) => {

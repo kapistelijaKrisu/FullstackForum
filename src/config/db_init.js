@@ -1,12 +1,12 @@
+const { mod } = require('./api_config')
 const { pool } = require('./dbpool')
-const { mod } = require('./config')
 const { addData } = require('./dbtestdata')
-const { getModId, initRoles } = require('../sqlqueries/role')
-const { findByNick, insertDude, findByID } = require('../sqlqueries/dude')
+const { getModId, initRoles } = require('../model/role')
+const { findByNick, insertDude, findByID } = require('../model/dude')
 const bcrypt = require('bcrypt')
 
 
-const dbcreation = async () => {
+const db_creation = async () => {
     //change here once for setting up production 
     const client = await pool.connect()
     try {
@@ -23,7 +23,7 @@ const dbcreation = async () => {
 
             console.log('Database tables are up')
             console.log('adding test data..')
-            await initMod(client)
+            await initMod(mod)
             await addData()
             console.log('Test data has been added')
         } else {
@@ -104,7 +104,7 @@ const dropTable = async (client, text) => {
     }
 }
 
-const initMod = async () => {
+const initMod = async (mod) => {
     const saltRounds = 10
     const modtokened = mod.split(":")
     const modDude = {
@@ -116,5 +116,6 @@ const initMod = async () => {
         console.log('this username is already taken') :
         modder = await insertDude(modDude)
 }
-
-dbcreation()
+module.exports = {
+    db_creation
+  }

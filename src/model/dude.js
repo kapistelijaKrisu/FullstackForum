@@ -1,4 +1,4 @@
-const { pool } = require('../utils/dbpool')
+const { pool } = require('../config/dbpool')
 
 const findByID = async (dudeid) => {
     const text = 'SELECT * FROM Dude WHERE dudeID = $1'

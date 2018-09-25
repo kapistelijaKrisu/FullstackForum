@@ -1,14 +1,17 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const {secret} = require('../utils/config')
-const dudequeries = require('../sqlqueries/dude')
-const {getModId} = require('../sqlqueries/role')
+const {secret} = require('../config/api_config')
+const dudequeries = require('../model/dude')
+const {getModId} = require('../model/role')
 
 router.post('/', async (request, response) => {
     try {
         const credentials = request.body
         const dude = await dudequeries.findByNick(credentials.username)
+        if (dude === undefined) {
+            return response.status(401).send({ error: 'invalid username or password' })
+        }
         const passwordCorrect = dude === null ?
             false : await bcrypt.compare(credentials.password, dude.password)
 

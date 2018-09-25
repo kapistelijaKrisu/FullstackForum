@@ -1,4 +1,4 @@
-const { pool } = require('../utils/dbpool')
+const { pool } = require('../config/dbpool')
 
 const findForumpost = async (forumpostid) => {
     const text = 'SELECT'

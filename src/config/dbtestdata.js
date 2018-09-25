@@ -1,9 +1,8 @@
-const { pool } = require('./dbpool')
-const { insertDude } = require('../sqlqueries/dude')
-const { insertCategory } = require('../sqlqueries/category')
-const { insertForumpost } = require('../sqlqueries/forumpost')
-const { insertComment } = require('../sqlqueries/comment')
-const { getModId, getPlebId } = require('../sqlqueries/role')
+const { insertDude } = require('../model/dude')
+const { insertCategory } = require('../model/category')
+const { insertForumpost } = require('../model/forumpost')
+const { insertComment } = require('../model/comment')
+const { getModId, getPlebId } = require('../model/role')
 const bcrypt = require('bcrypt')
 
 

@@ -25,3 +25,4 @@ optional
 -sort by views/popularity
 -improve personal page
 -notifying of receiving a comment into one of the posted posts
+-db init into script

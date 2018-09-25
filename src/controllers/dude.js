@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const { secret } = require('../utils/config')
-const dudequeries = require('../sqlqueries/dude')
-const { getPlebId, getModId } = require('../sqlqueries/role')
+const { secret } = require('../config/api_config')
+const dudequeries = require('../model/dude')
+const { getPlebId, getModId } = require('../model/role')
 const { isInLength } = require('../utils/validation')
 
 router.post('/', async (request, response) => {

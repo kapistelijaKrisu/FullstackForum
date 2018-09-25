@@ -1,4 +1,4 @@
-const config = require('./config')
+const config = require('./api_config')
 const { Pool } = require('pg');
 
 const conString = config.db

@@ -1,4 +1,4 @@
-const { pool } = require('../utils/dbpool')
+const { pool } = require('../config/dbpool')
 
 const findByForumpostId = async (forumpostid) => {
     const text = 'SELECT * FROM Comment WHERE forumpostid = $1;'

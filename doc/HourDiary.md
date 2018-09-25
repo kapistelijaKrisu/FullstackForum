@@ -15,3 +15,5 @@
 | 29.5  | 7    | forumpostin muokkaus sql ja frontti
 | 30.5  | 3    | heroku toimii statikin kans, xtra detailii kommentteihin
 | 31.5  | 6    | korjaa spa määrittelyn rikkovat osat, tuotanto alustava data, muut bugit, dokkarin päivitys, notifikaatiot, error404 sivu, validaatio
+--------------------------------------
+| 25.9 | xxx    | arkkitehtuurin järkkääminen

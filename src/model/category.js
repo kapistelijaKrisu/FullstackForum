@@ -1,4 +1,4 @@
-const { pool } = require('../utils/dbpool')
+const { pool } = require('../config/dbpool')
 
 const findAll = async () => {
     const text = 'SELECT * FROM Category ORDER BY Category.name ASC'
