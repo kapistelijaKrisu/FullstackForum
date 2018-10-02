@@ -6,6 +6,8 @@
 
 ### priority 
 - cleaner validator, controller functions are too long
+- test failing auth and see how auth works
+- frontend error msg are not correct if server fails
 - postcount,name..other details to category
 - paging
 - delete posts (comments with them as well)

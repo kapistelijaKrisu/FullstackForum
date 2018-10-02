@@ -16,4 +16,5 @@
 | 30.5  | 3    | heroku toimii statikin kans, xtra detailii kommentteihin
 | 31.5  | 6    | korjaa spa määrittelyn rikkovat osat, tuotanto alustava data, muut bugit, dokkarin päivitys, notifikaatiot, error404 sivu, validaatio
 --------------------------------------
-| 25.9 | xxx    | arkkitehtuurin järkkääminen
+| 25.9  | 3    | arkkitehtuurin järkkääminen pakkaukset
+| 2.10  | 2.5  | kategorian siistiminen
