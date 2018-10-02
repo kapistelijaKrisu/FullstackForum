@@ -7,8 +7,8 @@ const addCategory = async (requestBody, response, dudeId) => {
     const errors = await listErrors(category);
 
     return errors.length === 0
-        ? response.json(await insertCategory(category))
-        : response.status(400).json({ error: errors })
+        ? await insertCategory(category)
+        : { error: errors }
 };
 
 module.exports = addCategory
