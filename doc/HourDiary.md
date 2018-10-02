@@ -17,4 +17,4 @@
 | 31.5  | 6    | korjaa spa määrittelyn rikkovat osat, tuotanto alustava data, muut bugit, dokkarin päivitys, notifikaatiot, error404 sivu, validaatio
 --------------------------------------
 | 25.9  | 3    | arkkitehtuurin järkkääminen pakkaukset
-| 2.10  | 2.5  | kategorian siistiminen
+| 2.10  | 3    | kategorian siistiminen ja siistimisen korjaus ja errorlog one-lineri
