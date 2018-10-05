@@ -23,6 +23,7 @@ app.get("/build",function() {});
 
 app.use(middleware.logger)
 app.use(middleware.tokenExtractor)
+app.use(middleware.getSecurityContext)
 
 app.use('/api', rootRouter)
 app.use('/api/category', categoryRouter)

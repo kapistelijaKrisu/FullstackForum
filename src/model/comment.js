@@ -1,19 +1,19 @@
 const { pool } = require('../config/dbpool')
 
-const findByForumpostId = async (forumpostid) => {
-    const text = 'SELECT * FROM Comment WHERE forumpostid = $1;'
-    const { rows } = await pool.query(text, [forumpostid])
+const findByforumpost_id = async (forumpost_id) => {
+    const text = 'SELECT * FROM Comment WHERE forumpost_id = $1;'
+    const { rows } = await pool.query(text, [forumpost_id])
     return rows
 }
-const findByDudeId = async (dudeId) => {
-    const text = 'SELECT * FROM Comment WHERE creatorID = $1;'
-    const { rows } = await pool.query(text, [dudeId])
+const findByDudeId = async (dude_id) => {
+    const text = 'SELECT * FROM Comment WHERE creator_id = $1;'
+    const { rows } = await pool.query(text, [dude_id])
     return rows
 }
 
 const insertComment = async (comment) => {
-    const text = 'INSERT INTO Comment(content, creatorid, forumpostid, posttime) VALUES($1, $2, $3, now()) RETURNING * ;'
-    const values = [comment.content, comment.creatorid, comment.forumpostid]
+    const text = 'INSERT INTO Comment(content, creator_id, forumpost_id, posttime) VALUES($1, $2, $3, now()) RETURNING * ;'
+    const values = [comment.content, comment.creator_id, comment.forumpost_id]
     const { rows } = await pool.query(text, values)
     return rows[0]
 }
@@ -21,5 +21,5 @@ const insertComment = async (comment) => {
 module.exports = {
     insertComment,
     findByDudeId,
-    findByForumpostId
+    findByforumpost_id
 }

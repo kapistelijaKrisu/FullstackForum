@@ -2,13 +2,12 @@ const { insertCategory } = require('../../model/category')
 const listErrors = require('./listErrors')
 const formatCategory = require('./formatCategory')
 
-const addCategory = async (requestBody, dudeId) => {
-    const category = formatCategory(requestBody, dudeId);
+const addCategory = async (request, response) => {
+    const category = formatCategory(request.body, request.securityContext.dude_id);
     const errors = await listErrors(category);
-
     return errors.length === 0
-        ? await insertCategory(category)
-        : { error: errors }
+        ? response.json(await insertCategory(category))
+        : response.status(400).json({ errors: errors })
 };
 
 module.exports = addCategory

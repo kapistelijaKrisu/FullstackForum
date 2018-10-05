@@ -1,8 +1,8 @@
 const { pool } = require('../config/dbpool')
 
-const findByID = async (dudeid) => {
-    const text = 'SELECT * FROM Dude WHERE dudeID = $1'
-    const { rows } = await pool.query(text, [dudeid])
+const findByID = async (dude_id) => {
+    const text = 'SELECT * FROM Dude WHERE dude_id = $1'
+    const { rows } = await pool.query(text, [dude_id])
     return rows[0]
 }
 
@@ -18,8 +18,8 @@ const findByNick = async (nickname) => {
 
 
 const insertDude = async (dude) => {
-    const text = 'INSERT INTO dude(username, password, roleid) VALUES($1, $2, $3) RETURNING * ;'
-    const values = [dude.username, dude.password, dude.roleid]
+    const text = 'INSERT INTO dude(username, password, role_id) VALUES($1, $2, $3) RETURNING * ;'
+    const values = [dude.username, dude.password, dude.role_id]
     try {
         const { rows } = await pool.query(text, values)
         return rows[0]

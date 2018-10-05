@@ -37,7 +37,7 @@ const db_creation = async () => {
 }
 const initRoleTable = async (client) => {
     const text = 'CREATE TABLE Role ('
-        + 'roleid SERIAL PRIMARY KEY, '
+        + 'role_id SERIAL PRIMARY KEY, '
         + 'role varchar(31) NOT NULL UNIQUE '
         + '); '
     await client.query(text)
@@ -45,32 +45,32 @@ const initRoleTable = async (client) => {
 
 const initDudeTable = async (client) => {
     const text = 'CREATE TABLE Dude ('
-        + 'dudeID SERIAL NOT NULL PRIMARY KEY, '
+        + 'dude_id SERIAL NOT NULL PRIMARY KEY, '
         + 'username varchar(31) NOT NULL UNIQUE, '
         + 'password varchar(127) NOT NULL, '
-        + 'roleid int NOT NULL, '
-        + 'FOREIGN KEY (roleid) REFERENCES Role(roleid)'
+        + 'role_id int NOT NULL, '
+        + 'FOREIGN KEY (role_id) REFERENCES Role(role_id)'
         + '); '
     await client.query(text)
 }
 const initCategoryTable = async (client) => {
     const text = 'CREATE TABLE Category ('
-        + 'categoryID SERIAL NOT NULL PRIMARY KEY, '
+        + 'category_id SERIAL NOT NULL PRIMARY KEY, '
         + 'name varchar(31) NOT NULL UNIQUE, '
         + 'description varchar(127) NOT NULL, '
-        + 'creatorID int NOT NULL, '
-        + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID)'
+        + 'creator_id int NOT NULL, '
+        + 'FOREIGN KEY (creator_id) REFERENCES Dude(dude_id)'
         + '); '
     await client.query(text)
 }
 const initForumPostTable = async (client) => {
     const text = 'CREATE TABLE Forumpost ('
-        + 'forumpostID SERIAL NOT NULL PRIMARY KEY, '
+        + 'forumpost_id SERIAL NOT NULL PRIMARY KEY, '
         + 'title varchar(31) NOT NULL, '
-        + 'creatorID int NOT NULL, '
-        + 'categoryID int NOT NULL, '
-        + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID), '
-        + 'FOREIGN KEY (categoryID) REFERENCES Category(categoryID)'
+        + 'creator_id int NOT NULL, '
+        + 'category_id int NOT NULL, '
+        + 'FOREIGN KEY (creator_id) REFERENCES Dude(dude_id), '
+        + 'FOREIGN KEY (category_id) REFERENCES Category(category_id)'
         + '); '
     await client.query(text)
 }
@@ -78,11 +78,11 @@ const initCommentTable = async (client) => {
     const text = 'CREATE TABLE Comment ('
         + 'commentID SERIAL NOT NULL PRIMARY KEY, '
         + 'content varchar(1023) NOT NULL, '
-        + 'creatorID int NOT NULL, '
-        + 'forumpostID int NOT NULL, '
+        + 'creator_id int NOT NULL, '
+        + 'forumpost_id int NOT NULL, '
         + 'posttime timestamp NOT NULL, '
-        + 'FOREIGN KEY (creatorID) REFERENCES Dude(dudeID), '
-        + 'FOREIGN KEY (forumpostID) REFERENCES Forumpost(forumpostID)'
+        + 'FOREIGN KEY (creator_id) REFERENCES Dude(dude_id), '
+        + 'FOREIGN KEY (forumpost_id) REFERENCES Forumpost(forumpost_id)'
         + '); '
     await client.query(text)
 }
@@ -110,7 +110,7 @@ const initMod = async (mod) => {
     const modDude = {
         username: modtokened[0],
         password: await bcrypt.hash(modtokened[1], saltRounds),
-        roleid: getModId()
+        role_id: getModId()
     }
     await findByNick(modDude.username) ?
         console.log('this username is already taken') :

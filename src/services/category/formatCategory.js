@@ -1,8 +1,8 @@
-const formatCategory = (body, dudeId) => {
+const formatCategory = (body, dude_id) => {
     return {
         name: body.name.trim(),
         description: body.description.trim(),
-        creatorid: dudeId
+        creator_id: dude_id
     };
 }
 

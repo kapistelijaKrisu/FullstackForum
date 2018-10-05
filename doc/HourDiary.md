@@ -18,3 +18,4 @@
 --------------------------------------
 | 25.9  | 3    | arkkitehtuurin järkkääminen pakkaukset
 | 2.10  | 3    | kategorian siistiminen ja siistimisen korjaus ja errorlog one-lineri
+| 5.10  | 4    | loput kontrollerit siistiksi

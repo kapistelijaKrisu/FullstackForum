@@ -1,9 +1,9 @@
 const { pool } = require('../config/dbpool')
 
 
-const findByID = async (roleid) => {
-    const text = 'SELECT * FROM Role WHERE roleid = $1'
-    const { rows } = await pool.query(text, [roleid])
+const findByID = async (role_id) => {
+    const text = 'SELECT * FROM Role WHERE role_id = $1'
+    const { rows } = await pool.query(text, [role_id])
     return rows[0]
 }
 const findByRole = async (role) => {
@@ -14,9 +14,9 @@ const findByRole = async (role) => {
 
 const insertRole = async (client, role) => {
 
-    const text = 'INSERT INTO Role(role) VALUES($1) Returning roleId'
+    const text = 'INSERT INTO Role(role) VALUES($1) Returning role_id'
     const { rows } = await client.query(text, [role])
-    return rows[0].roleid
+    return rows[0].role_id
 }
 
 let plebId
@@ -34,14 +34,14 @@ const initRoles = async (client) => {
     if (!foundPleb) {
         plebId = await insertRole(client, 'PLEB')
     } else {
-        plebId = foundPleb.roleid
+        plebId = foundPleb.role_id
     }
 
     const foundMod = await findByRole('MOD')
     if (!await foundMod) {
          modId = await insertRole(client, 'MOD')
     } else {
-        modId = foundMod.roleid
+        modId = foundMod.role_id
     }
 }
 

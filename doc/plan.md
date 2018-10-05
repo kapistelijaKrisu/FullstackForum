@@ -15,6 +15,7 @@
 - lock posts if mod rights
 - abstract components that look alike (linkcomponents, redirecting wrapper)
 - insert pictures, gifs to comments
+- redirect from not existing post leads to undefined category, should fix that
 - tests, proptypes
 - lint
 - mobile view

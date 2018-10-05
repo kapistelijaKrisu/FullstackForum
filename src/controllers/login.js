@@ -21,9 +21,9 @@ router.post('/', async (request, response) => {
 
         const loginToken = {
             username: dude.username,
-            dudeid: dude.dudeid,
-            roleid: dude.roleid,
-            isMod: dude.roleid===getModId()
+            dude_id: dude.dude_id,
+            role_id: dude.role_id,
+            isMod: dude.role_id===getModId()
         }
         const token = jwt.sign(loginToken, secret)
         response.status(200).send({ token, loginToken })

@@ -4,5 +4,5 @@ Content-Type: application/json
 
 {
     "content":"commenting content",
-    "forumpostid":1
+    "forumpost_id":1
 }
