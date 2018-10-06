@@ -2,7 +2,7 @@ const { mod } = require('./api_config')
 const { pool } = require('./dbpool')
 const { addData } = require('./dbtestdata')
 const { getModId, initRoles } = require('../model/role')
-const { findByNick, insertDude, findByID } = require('../model/dude')
+const { findByNick, insertDude } = require('../model/dude')
 const bcrypt = require('bcrypt')
 
 
@@ -10,7 +10,7 @@ const db_creation = async () => {
     //change here once for setting up production 
     const client = await pool.connect()
     try {
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV !== 'production') {
             await dropDBtables(client)
 
             console.log('Setting up database tables...')
@@ -76,7 +76,7 @@ const initForumPostTable = async (client) => {
 }
 const initCommentTable = async (client) => {
     const text = 'CREATE TABLE Comment ('
-        + 'commentID SERIAL NOT NULL PRIMARY KEY, '
+        + 'comment_id SERIAL NOT NULL PRIMARY KEY, '
         + 'content varchar(1023) NOT NULL, '
         + 'creator_id int NOT NULL, '
         + 'forumpost_id int NOT NULL, '

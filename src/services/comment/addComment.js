@@ -6,8 +6,13 @@ const addComment = async (request, response) => {
     let comment = await formatComment(request)
     const errors = await listErrors(comment)
     return errors.length === 0
-        ? response.json(await insertComment(comment))
-        : response.status(400).json({ error: errors })
+        ? response.json(await attachCreatorName(await insertComment(comment, securityContext)))
+        : response.status(400).json({ error: errors });
 };
+
+const attachCreatorName = async (comment, securityContext) => {
+    comment.creatorname = securityContext.username;
+    return comment;
+}
 
 module.exports = addComment

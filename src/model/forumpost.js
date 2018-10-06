@@ -3,7 +3,7 @@ const { pool } = require('../config/dbpool')
 const findForumpost = async (forumpost_id) => {
     const text = 'SELECT'
         + ' p.forumpost_id, p.title, p.creator_id AS postcreator, p.category_id, '
-        + ' c.commentid, c.content AS commentcontent, c.creator_id AS commentcreator, c.posttime, '
+        + ' c.comment_id, c.content AS commentcontent, c.creator_id AS commentcreator, c.posttime, '
         + ' cat.name AS categoryname,'
         + ' d.username AS commentcreatorname'
 
@@ -28,12 +28,12 @@ const findForumpost = async (forumpost_id) => {
         categoryname: rows[0].categoryname,
         comments: []
     }
-    if (rows[0].commentid === null) {
+    if (rows[0].comment_id === null) {
         return post
     }
     rows.forEach(row => {
         post.comments = post.comments.concat({
-            commentid: row.commentid,
+            comment_id: row.comment_id,
             content: row.commentcontent,
             creator_id: row.commentcreator,
             creatorname: row.commentcreatorname,

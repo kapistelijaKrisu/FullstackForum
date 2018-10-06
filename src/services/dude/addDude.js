@@ -9,7 +9,7 @@ addDude = async (request, response) => {
     errors = await listErrors(request.body);
     return errors.length !== 0
         ? response.status(400).json({ error: 'username must be unique' })
-        : await sendNewlyMadeToken(makeDude(request), response);
+        : await sendNewlyMadeToken(await makeDude(request), response);
 }
 
 sendNewlyMadeToken = async (dude, response) => {
