@@ -1,7 +1,7 @@
 let port = null
 let db = 'lalala'
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv').config({ path: __dirname + '/.env' })
   if (dotenv.error) {
     throw dotenv.error
