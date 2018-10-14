@@ -5,15 +5,13 @@
 ## after summer
 
 ### priority
-- history fix to navigate back
-- test failing auth and see how auth works
-- frontend error msg are not correct if server fails
+- test failing auth and see how auth works, (remove token if account deleted or 1day idle)
+- frontend error msg are not correct if server fails (interceptor to read error msg)
 - postcount,name..other details to category
 - paging
 - delete posts (comments with them as well)
 - edit category/forumposts/comments
 - lock posts if mod rights
-- abstract components that look alike (linkcomponents, redirecting wrapper)
 - insert pictures, gifs to comments
 - redirect from not existing post leads to undefined category, should fix that
 - tests, proptypes
