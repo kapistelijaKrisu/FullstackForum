@@ -10,7 +10,7 @@ const db_creation = async () => {
     //change here once for setting up production 
     const client = await pool.connect()
     try {
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV !== 'production') {
             await dropDBtables(client)
 
             console.log('Setting up database tables...')

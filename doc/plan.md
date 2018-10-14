@@ -4,9 +4,7 @@
 
 ## after summer
 
-### priority 
-- fix frontend by underscore syntax on data
-- cleaner validator, controller functions are too long
+### priority
 - history fix to navigate back
 - test failing auth and see how auth works
 - frontend error msg are not correct if server fails
