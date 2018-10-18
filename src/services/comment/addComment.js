@@ -6,7 +6,9 @@ const addComment = async (request, response) => {
     let comment = await formatComment(request)
     const errors = await listErrors(comment)
     return errors.length === 0
-        ? response.json(await attachCreatorName(await insertComment(comment, securityContext)))
+        ? response.json(
+            await attachCreatorName(
+                await insertComment(comment), request.securityContext))
         : response.status(400).json({ error: errors });
 };
 

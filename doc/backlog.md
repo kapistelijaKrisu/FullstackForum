@@ -5,8 +5,6 @@
 ## after summer
 
 ### priority
-- frontend error msg are not correct if server fails (interceptor to read error msg)
-- remove token if account deleted or 1day idle
 - postcount,name..other details to category
 - paging
 - disable posts further commenting as well / mod can do it

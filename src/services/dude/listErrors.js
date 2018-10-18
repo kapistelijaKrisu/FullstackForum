@@ -13,7 +13,6 @@ const listErrors = async (body) => {
 
     const dude = await dudequeries.findByNick(body.username)
     if (dude) {
-        console.log(dude)
         errors.push('Username must be unique');
     }
     return errors;

@@ -8,7 +8,7 @@ const listErrors = require('./listErrors')
 addDude = async (request, response) => {
     errors = await listErrors(request.body);
     return errors.length !== 0
-        ? response.status(400).json({ error: 'username must be unique' })
+        ? response.status(400).json({ error: errors })
         : await sendNewlyMadeToken(await makeDude(request), response);
 }
 

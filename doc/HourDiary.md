@@ -20,4 +20,4 @@
 | 2.10  | 3    | kategorian siistiminen ja siistimisen korjaus ja errorlog one-lineri
 | 5.10  | 4    | loput kontrollerit siistiksi
 | 14.10 | 3    | link push to history + refactor to unified component + error handling iteration2 began
-| 18.10 | 2    | backlog refinement + error handling 
+| 18.10 | 3    | backlog refinement + error handling 
