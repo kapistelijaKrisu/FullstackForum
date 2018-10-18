@@ -12,20 +12,21 @@
 - disable posts further commenting as well / mod can do it
 - delete comments and name variables of cat/post/com
 - edit category/forumposts/comments
-- insert pictures, gifs to comments
 - redirect from not existing post leads to undefined category, should fix that
 - likes, view count
-- tests, proptypes
-- lint
-- mobile view
-### optional
-- deploy via docker
-- have categories visible/writable only for mods
-- convert viewed posttime to local time
-- find nicer form components to make validation more clear and simpler
 - category page of undefined to throw error and add other info of category to category page
-- sort by views/popularity
-- improve personal page
-- make background fancier
-- notifying of receiving a comment into one of the posted posts
+### optional
+- follow own posts
+- follow other's posts
+- mobile view
+- deploy via docker
+- insert pictures, gifs to comments
 - db init into script
+- lint
+- convert viewed posttime to local time
+- have categories visible/writable only for mods
+- find nicer form components to make validation more clear and simpler
+- sort by views/popularity
+- improve personal page (exact way to be defined, partially done with other tasks)
+- make background fancier
+- tests, proptypes
