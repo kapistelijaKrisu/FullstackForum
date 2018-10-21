@@ -5,7 +5,7 @@
 ## after summer
 
 ### priority
-- postcount,name..other details to category
+- postcount,name..other details to category -backend done
 - paging
 - disable posts further commenting as well / mod can do it
 - delete comments and name variables of cat/post/com
