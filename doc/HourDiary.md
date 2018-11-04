@@ -22,3 +22,4 @@
 | 14.10 | 3    | link push to history + refactor to unified component + error handling iteration2 began
 | 18.10 | 3    | backlog refinement + error handling 
 | 21.10 | 1    | refine sqlqueries for category
+| 4.11  | 3    | refine sqlqueries for category 2nd inner select + use this data in frontend
