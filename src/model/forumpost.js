@@ -1,4 +1,6 @@
 const { pool } = require('../config/dbpool')
+const CONSTANTS = require('../utils/constants')
+const LIMIT = CONSTANTS.FORUMPOST.DEFAULT_LIMIT_PER_PAGE;
 
 const findForumpost = async (forumpost_id) => {
     const text = 'SELECT'
@@ -45,19 +47,23 @@ const findForumpost = async (forumpost_id) => {
 }
 
 //must have at least 1 comment to work
-const findByCategoryId = async (category_id) => {
+const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
     const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id FROM Forumpost f '
     + 'JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
     +' WHERE f.category_id = $1'
     +' GROUP BY f.forumpost_id'
     +' ORDER BY max(c.posttime) DESC '
+    +' LIMIT $2'
+    +' OFFSET $3'
     
-    const { rows } = await pool.query(text, [category_id])
+    const { rows } = await pool.query(text, [category_id, limit, offset])
     return rows
 }
-const findByDudeId = async (dude_id) => {
-    const text = 'SELECT * FROM Forumpost WHERE creator_id = $1;'
-    const { rows } = await pool.query(text, [dude_id])
+const findByDudeId = async (dude_id, limit = LIMIT, offset = 0) => {
+    const text = 'SELECT * FROM Forumpost WHERE creator_id = $1'
+    +' LIMIT $2'
+    +' OFFSET $3'
+    const { rows } = await pool.query(text, [dude_id, limit, offset])
     return rows
 }
 
@@ -68,7 +74,20 @@ const insertForumpost = async (forumpost) => {
     return rows[0]
 }
 
+const getForumpostCountByCategory = async (category_id) => {
+    const text = 'SELECT COUNT(1) FROM Forumpost f where f.category_id = $1;'
+    const { rows } = await pool.query(text, [category_id])
+    return rows[0].count
+}
+const getForumpostCountByDude = async (dude_id) => {
+    const text = 'SELECT COUNT(1) FROM Forumpost f where f.creator_id = $1;'
+    const { rows } = await pool.query(text,[dude_id])
+    return rows[0].count
+}
+
 module.exports = {
+    getForumpostCountByCategory,
+    getForumpostCountByDude,
     findForumpost,
     insertForumpost,
     findByDudeId,

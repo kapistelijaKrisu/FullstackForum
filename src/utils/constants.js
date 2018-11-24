@@ -29,7 +29,8 @@ const CONSTANTS = {
             TITLE_LENGTH_MAX: 31,
             CONTENT_LENGTH_MIN: 2,
             CONTENT_LENGTH_MAX: 1023,
-        }
+        },
+        DEFAULT_LIMIT_PER_PAGE: 10
     }
 }
 
