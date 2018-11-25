@@ -24,3 +24,4 @@
 | 21.10 | 1    | refine sqlqueries for category
 | 4.11  | 3    | refine sqlqueries for category 2nd inner select + use this data in frontend
 | 25.11 | 3    | category link ui done, paging started
+| 26.11 | 1    | paging bugs fixed

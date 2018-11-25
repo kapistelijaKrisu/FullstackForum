@@ -20,18 +20,18 @@ const addData = async () => {
     const catVar2 = { name: 'categ2', description: 'dis an another test category', creator_id: dude2.dude_id }
     const cat2 = await insertCategory(catVar2)
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
         const postVar1 = { title: 'dis a forum post' + i, creator_id: dude2.dude_id, category_id: cat1.category_id }
         const postVar2 = { title: 'dis a forum post another' + i, creator_id: dude2.dude_id, category_id: cat1.category_id }
-        const post1 = await insertForumpost(postVar1)
+        //const post1 = await insertForumpost(postVar1)
         const post2 = await insertForumpost(postVar2)
 
-        const comvar1 = { content: 'dis is a comment' + i, creator_id: dude2.dude_id, forumpost_id: post1.forumpost_id }
-        const comvar2 = { content: 'dis is a 2nd coment ' + i, creator_id: dude2.dude_id, forumpost_id: post1.forumpost_id }
+      //  const comvar1 = { content: 'dis is a comment' + i, creator_id: dude2.dude_id, forumpost_id: post1.forumpost_id }
+      //  const comvar2 = { content: 'dis is a 2nd coment ' + i, creator_id: dude2.dude_id, forumpost_id: post1.forumpost_id }
         const comvar3 = { content: 'dis is a 3rd comment' + i, creator_id: dude2.dude_id, forumpost_id: post2.forumpost_id }
         const comvar4 = { content: 'dis is a 4th coment' + i, creator_id: dude2.dude_id, forumpost_id: post2.forumpost_id }
-        const com1 = await insertComment(comvar1)
-        const com2 = await insertComment(comvar2)
+      //  const com1 = await insertComment(comvar1)
+      //  const com2 = await insertComment(comvar2)
         const com3 = await insertComment(comvar3)
         const com4 = await insertComment(comvar4)
     }
