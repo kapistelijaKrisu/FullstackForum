@@ -60,7 +60,11 @@ const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
     return rows
 }
 const findByDudeId = async (dude_id, limit = LIMIT, offset = 0) => {
-    const text = 'SELECT * FROM Forumpost WHERE creator_id = $1'
+    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id FROM Forumpost f '
+    + 'JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
+    +' WHERE f.creator_id = $1'
+    +' GROUP BY f.forumpost_id'
+    +' ORDER BY max(c.posttime) DESC '
     +' LIMIT $2'
     +' OFFSET $3'
     const { rows } = await pool.query(text, [dude_id, limit, offset])

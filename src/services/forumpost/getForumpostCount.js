@@ -4,9 +4,10 @@ const exceptionLog = require('../../utils/exceptionLog')
 //refine here in case secret posts will be done
 getForumPostCount = async (request, response) => {
     try {
+        
         if (request.params.byParent === 'category') {
             response.json(await getForumpostCountByCategory(request.params.parent_id));
-        } else if (request.params.parentType === 'creator') {
+        } else if (request.params.byParent === 'creator') {
             response.json(await getForumpostCountByDude(request.params.parent_id));
 
         }

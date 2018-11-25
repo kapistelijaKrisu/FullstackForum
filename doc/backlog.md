@@ -5,14 +5,14 @@
 ## after summer
 
 ### priority
-- paging refine style and fix not 0 page and add to dude page
 - disable posts further commenting as well / mod can do it
 - delete comments and name variables of cat/post/com
 - edit category/forumposts/comments
 - redirect from not existing post leads to undefined category, should fix that
 - likes, view count
-- category page of undefined to throw error and add other info of category to category page
+- backend validator for number type params (getters mostly)
 ### optional
+- update node (requires updating bcrypt)
 - save settings for user in db to carry settings, custom paging, theme, profile
 - make logo in forumpost listing an image link
 - change color when mouse hovering over linkable shit
