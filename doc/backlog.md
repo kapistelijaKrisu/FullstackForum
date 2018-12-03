@@ -8,10 +8,11 @@
 - disable posts further commenting as well / mod can do it
 - delete comments and name variables of cat/post/com
 - edit category/forumposts/comments
-- redirect from not existing post leads to undefined category, should fix that
+- redirect from not existing post leads to undefined category, redirect to error page so bug is never encountered
 - likes, view count
 - backend validator for number type params (getters mostly)
 ### optional
+- deal with desync coming from changing category
 - update node (requires updating bcrypt)
 - save settings for user in db to carry settings, custom paging, theme, profile
 - make logo in forumpost listing an image link

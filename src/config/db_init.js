@@ -28,13 +28,25 @@ const db_creation = async () => {
             console.log('Test data has been added')
         } else {
             await initRoles(client)//dont forget this
+            await migration(client)
         }
+        await migration(client)
     } catch (e) {
         console.log('db init failed', e)
     } finally {
         client.release()
     }
 }
+
+const migration = async (client) => {
+    let text = 'ALTER TABLE Forumpost '
+        + 'ADD COLUMN disabled boolean;'
+    await client.query(text)
+    text = 'UPDATE Forumpost '
+    + 'SET disabled = false;'
+    await client.query(text)
+}
+
 const initRoleTable = async (client) => {
     const text = 'CREATE TABLE Role ('
         + 'role_id SERIAL PRIMARY KEY, '
