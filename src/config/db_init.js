@@ -28,9 +28,8 @@ const db_creation = async () => {
             console.log('Test data has been added')
         } else {
             await initRoles(client)//dont forget this
-            await migration(client)
+            // await migration(client)
         }
-        await migration(client)
     } catch (e) {
         console.log('db init failed', e)
     } finally {
@@ -81,6 +80,7 @@ const initForumPostTable = async (client) => {
         + 'title varchar(31) NOT NULL, '
         + 'creator_id int NOT NULL, '
         + 'category_id int NOT NULL, '
+        + 'disabled boolean DEFAULT false NOT NULL, '
         + 'FOREIGN KEY (creator_id) REFERENCES Dude(dude_id), '
         + 'FOREIGN KEY (category_id) REFERENCES Category(category_id)'
         + '); '

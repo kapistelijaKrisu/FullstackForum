@@ -4,7 +4,7 @@ const LIMIT = CONSTANTS.FORUMPOST.DEFAULT_LIMIT_PER_PAGE;
 
 const findForumpost = async (forumpost_id) => {
     const text = 'SELECT'
-        + ' p.forumpost_id, p.title, p.creator_id AS postcreator, p.category_id, '
+        + ' p.forumpost_id, p.title, p.creator_id AS postcreator, p.category_id, p.disabled, '
         + ' c.comment_id, c.content AS commentcontent, c.creator_id AS commentcreator, c.posttime, '
         + ' cat.name AS categoryname,'
         + ' d.username AS commentcreatorname'
@@ -28,6 +28,7 @@ const findForumpost = async (forumpost_id) => {
         creator_id: rows[0].postcreator,
         category_id: rows[0].category_id,
         categoryname: rows[0].categoryname,
+        disabled: rows[0].disabled,
         comments: []
     }
     if (rows[0].comment_id === null) {
@@ -48,8 +49,9 @@ const findForumpost = async (forumpost_id) => {
 
 //must have at least 1 comment to work
 const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
-    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id FROM Forumpost f '
-    + 'JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
+    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id, f.disabled'
+    +' FROM Forumpost f '
+    +' JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
     +' WHERE f.category_id = $1'
     +' GROUP BY f.forumpost_id'
     +' ORDER BY max(c.posttime) DESC '
@@ -60,8 +62,9 @@ const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
     return rows
 }
 const findByDudeId = async (dude_id, limit = LIMIT, offset = 0) => {
-    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id FROM Forumpost f '
-    + 'JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
+    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id, f.disabled'
+    +' FROM Forumpost f '
+    +' JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
     +' WHERE f.creator_id = $1'
     +' GROUP BY f.forumpost_id'
     +' ORDER BY max(c.posttime) DESC '
@@ -79,13 +82,20 @@ const insertForumpost = async (forumpost) => {
 }
 
 const getForumpostCountByCategory = async (category_id) => {
-    const text = 'SELECT COUNT(1) FROM Forumpost f where f.category_id = $1;'
+    const text = 'SELECT count(1) FROM Forumpost WHERE category_id = $1;'
     const { rows } = await pool.query(text, [category_id])
     return rows[0].count
 }
 const getForumpostCountByDude = async (dude_id) => {
-    const text = 'SELECT COUNT(1) FROM Forumpost f where f.creator_id = $1;'
+    const text = 'SELECT COUNT(1) FROM Forumpost where creator_id = $1;'
     const { rows } = await pool.query(text,[dude_id])
+    return rows[0].count
+}
+
+const setForumpostDisabled = async (forumpost_id, disabled) => {
+    const text = 'UPDATE TABLE Forumpost f SET disable = $2 WHERE f.forumpost_id = $1;'
+    const values = [forumpost_id, disabled]
+    const { rows } = await pool.query(text,[values])
     return rows[0].count
 }
 

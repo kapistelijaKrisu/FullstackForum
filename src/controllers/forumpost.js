@@ -4,7 +4,7 @@ const getForumPostById = require('../services/forumpost/getForumPostById')
 const getForumpostsByCategoryId = require('../services/forumpost/getForumpostsByCategoryId')
 const getForumpostsByDudeId = require('../services/forumpost/getForumpostsByDudeId')
 const addForumPostWithInitialComment = require('../services/forumpost/addForumPostWithInitialComment')
-const getForumPostCount = require = require('../services/forumpost/getForumpostCount')
+const getForumPostCount = require('../services/forumpost/getForumpostCount')
 
 router.get('/count/:byParent/:parent_id', async (request, response) => {
     try {
