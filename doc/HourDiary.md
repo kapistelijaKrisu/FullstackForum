@@ -26,4 +26,5 @@
 | 25.11 | 3    | category link ui done, paging started
 | 26.11 | 2    | paging finished
 | 4.12  | 2    | possibily of having locked forumpost
-| 8.12  | x    | mod can lock posts
+| 8.12  | 2    | mod can lock posts
+| 23.12 | 3    | forumposts have role based universal put method
