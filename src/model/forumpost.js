@@ -47,6 +47,12 @@ const findForumpost = async (forumpost_id) => {
     return post
 }
 
+const findPureForumpost = async (forumpost_id) => {
+    const text = 'SELECT * from Forumpost f WHERE f.forumpost_id = $1;' 
+    const { rows } = await pool.query(text, [forumpost_id])
+    return rows[0]
+}
+
 //must have at least 1 comment to work
 const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
     const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id, f.disabled'
@@ -92,18 +98,28 @@ const getForumpostCountByDude = async (dude_id) => {
     return rows[0].count
 }
 
-const setForumpostDisabled = async (forumpost_id, disabled) => {
-    const text = 'UPDATE TABLE Forumpost f SET disable = $2 WHERE f.forumpost_id = $1;'
-    const values = [forumpost_id, disabled]
-    const { rows } = await pool.query(text,[values])
-    return rows[0].count
+const editForumpost = async (forumpost) => {
+    const text = 'UPDATE Forumpost SET'
+    + ' disabled = $2,'
+    + ' title = $3,'
+    + ' category_id = $4'
+    + ' WHERE forumpost_id = $1;'
+    const values = [
+        forumpost.forumpost_id,
+        forumpost.disabled,
+        forumpost.title,
+        forumpost.category_id]
+    const { rows } = await pool.query(text, values)
+    return rows[0]
 }
 
 module.exports = {
     getForumpostCountByCategory,
     getForumpostCountByDude,
+    findPureForumpost,
     findForumpost,
     insertForumpost,
+    editForumpost,
     findByDudeId,
     findByCategoryId
 }

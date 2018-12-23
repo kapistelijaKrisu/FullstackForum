@@ -5,7 +5,8 @@
 ## after summer
 
 ### priority
-- disable posts further commenting as well / mod can do it
+- button for mod to disable post
+- proper error message for incorrect login
 - delete comments and name variables of cat/post/com
 - edit category/forumposts/comments
 - redirect from not existing post leads to undefined category, redirect to error page so bug is never encountered

@@ -3,6 +3,7 @@ const exceptionLog = require('../utils/exceptionLog')
 const getForumPostById = require('../services/forumpost/getForumPostById')
 const getForumpostsByCategoryId = require('../services/forumpost/getForumpostsByCategoryId')
 const getForumpostsByDudeId = require('../services/forumpost/getForumpostsByDudeId')
+const editForumpost = require('../services/forumpost/editForumpost')
 const addForumPostWithInitialComment = require('../services/forumpost/addForumPostWithInitialComment')
 const getForumPostCount = require('../services/forumpost/getForumpostCount')
 
@@ -43,6 +44,16 @@ router.post('/', async (request, response) => {
             return response.status(401).json({ error: 'login please before posting' });
         }
         return await addForumPostWithInitialComment(request, response);
+    } catch (exception) {
+        exceptionLog(exception, response)
+    }
+})
+router.put('/', async (request, response) => {
+    try {
+        if (!request.securityContext) {
+            return response.status(401).json({ error: 'login please before posting' });
+        }
+        return await editForumpost(request, response);
     } catch (exception) {
         exceptionLog(exception, response)
     }
