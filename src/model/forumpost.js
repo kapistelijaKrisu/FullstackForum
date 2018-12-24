@@ -1,5 +1,5 @@
-const { pool } = require('../config/dbpool')
-const CONSTANTS = require('../utils/constants')
+const { pool } = require('../config/dbpool');
+const CONSTANTS = require('../utils/constants');
 const LIMIT = CONSTANTS.FORUMPOST.DEFAULT_LIMIT_PER_PAGE;
 
 const findForumpost = async (forumpost_id) => {
@@ -14,13 +14,13 @@ const findForumpost = async (forumpost_id) => {
         + ' LEFT JOIN Category cat ON p.category_id = cat.category_id'
         + ' LEFT JOIN Dude d ON c.creator_id = d.dude_id'
         + ' WHERE p.forumpost_id = $1'
-        + ' ORDER BY c.posttime ASC;'
+        + ' ORDER BY c.posttime ASC;';
 
     const query = {
         text: text,
         values: [forumpost_id]
     };
-    const { rows } = await pool.query(query)
+    const { rows } = await pool.query(query);
 
     let post = {
         forumpost_id: rows[0].forumpost_id,
@@ -30,9 +30,9 @@ const findForumpost = async (forumpost_id) => {
         categoryname: rows[0].categoryname,
         disabled: rows[0].disabled,
         comments: []
-    }
+    };
     if (rows[0].comment_id === null) {
-        return post
+        return post;
     }
     rows.forEach(row => {
         post.comments = post.comments.concat({
@@ -43,14 +43,14 @@ const findForumpost = async (forumpost_id) => {
             posttime: row.posttime
 
         })
-    })
-    return post
+    });
+    return post;
 }
 
 const findPureForumpost = async (forumpost_id) => {
-    const text = 'SELECT * from Forumpost f WHERE f.forumpost_id = $1;' 
-    const { rows } = await pool.query(text, [forumpost_id])
-    return rows[0]
+    const text = 'SELECT * from Forumpost f WHERE f.forumpost_id = $1;' ;
+    const { rows } = await pool.query(text, [forumpost_id]);
+    return rows[0];
 }
 
 //must have at least 1 comment to work
@@ -62,10 +62,10 @@ const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
     +' GROUP BY f.forumpost_id'
     +' ORDER BY max(c.posttime) DESC '
     +' LIMIT $2'
-    +' OFFSET $3'
+    +' OFFSET $3';
     
-    const { rows } = await pool.query(text, [category_id, limit, offset])
-    return rows
+    const { rows } = await pool.query(text, [category_id, limit, offset]);
+    return rows;
 }
 const findByDudeId = async (dude_id, limit = LIMIT, offset = 0) => {
     const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id, f.disabled'
@@ -75,27 +75,27 @@ const findByDudeId = async (dude_id, limit = LIMIT, offset = 0) => {
     +' GROUP BY f.forumpost_id'
     +' ORDER BY max(c.posttime) DESC '
     +' LIMIT $2'
-    +' OFFSET $3'
-    const { rows } = await pool.query(text, [dude_id, limit, offset])
-    return rows
+    +' OFFSET $3';
+    const { rows } = await pool.query(text, [dude_id, limit, offset]);
+    return rows;
 }
 
 const insertForumpost = async (forumpost) => {
-    const text = 'INSERT INTO Forumpost(title, creator_id, category_id) VALUES($1, $2, $3) RETURNING * ;'
-    const values = [forumpost.title, forumpost.creator_id, forumpost.category_id]
-    const { rows } = await pool.query(text, values)
-    return rows[0]
+    const text = 'INSERT INTO Forumpost(title, creator_id, category_id) VALUES($1, $2, $3) RETURNING * ;';
+    const values = [forumpost.title, forumpost.creator_id, forumpost.category_id];
+    const { rows } = await pool.query(text, values);
+    return rows[0];
 }
 
 const getForumpostCountByCategory = async (category_id) => {
-    const text = 'SELECT count(1) FROM Forumpost WHERE category_id = $1;'
-    const { rows } = await pool.query(text, [category_id])
-    return rows[0].count
+    const text = 'SELECT count(1) FROM Forumpost WHERE category_id = $1;';
+    const { rows } = await pool.query(text, [category_id]);
+    return rows[0].count;
 }
 const getForumpostCountByDude = async (dude_id) => {
-    const text = 'SELECT COUNT(1) FROM Forumpost where creator_id = $1;'
-    const { rows } = await pool.query(text,[dude_id])
-    return rows[0].count
+    const text = 'SELECT COUNT(1) FROM Forumpost where creator_id = $1;';
+    const { rows } = await pool.query(text,[dude_id]);
+    return rows[0].count;
 }
 
 const editForumpost = async (forumpost) => {
@@ -103,13 +103,13 @@ const editForumpost = async (forumpost) => {
     + ' disabled = $2,'
     + ' title = $3,'
     + ' category_id = $4'
-    + ' WHERE forumpost_id = $1;'
+    + ' WHERE forumpost_id = $1;';
     const values = [
         forumpost.forumpost_id,
         forumpost.disabled,
         forumpost.title,
-        forumpost.category_id]
-    const { rows } = await pool.query(text, values)
+        forumpost.category_id];
+    const { rows } = await pool.query(text, values);
     return rows[0]
 }
 

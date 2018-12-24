@@ -4,8 +4,6 @@ const { findById } = require('../../model/category')
 
 const listErrors = async (forumpost) => {
     let errors = [];
-    console.log('val', forumpost)
-
     if (!forumpost.category_id) {
         errors.push('Choose a category for this post please');
     } else if (!await findById(forumpost.category_id)) {

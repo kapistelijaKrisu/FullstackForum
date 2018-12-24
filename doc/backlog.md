@@ -5,7 +5,6 @@
 ## after summer
 
 ### priority
-- tidy UI to show that forumpost is locked
 - proper error message for incorrect login
 - delete comments and name variables of cat/post/com
 - edit category/forumposts/comments
