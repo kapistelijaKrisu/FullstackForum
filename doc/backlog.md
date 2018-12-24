@@ -5,15 +5,16 @@
 ## after summer
 
 ### priority
-- proper error message for incorrect login
-- delete comments and name variables of cat/post/com
-- edit category/forumposts/comments
+- delete comments (mod only, force hide not a real deletion)
+- edit category/comments
 - redirect from not existing post leads to undefined category, redirect to error page so bug is never encountered
-- likes, view count
+- view count for forumpost
+- prettify forumpostlink
 - backend validator for number type params (getters mostly)
-- hide forumdb.png. it's outdated
 ### optional
 - update forumdb.png
+- likes for forumpost
+- follow posts by adding bookmark section to profile page
 - deal with desync coming from changing category
 - update node (requires updating bcrypt)
 - save settings for user in db to carry settings, custom paging, theme, profile

@@ -21,6 +21,9 @@ const CONSTANTS = {
             USERNAME_LENGTH_MAX: 31,
             PASSWORD_LENGTH_MIN: 3,
             PASSWORD_LENGTH_MAX: 31,
+        },
+        ERROR: {
+            BAD_CREDENTIALS: 'Invalid username or password!'
         }
     },
     FORUMPOST: {

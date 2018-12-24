@@ -28,3 +28,4 @@
 | 4.12  | 2    | possibily of having locked forumpost
 | 8.12  | 2    | mod can lock posts
 | 23.12 | 4    | forumposts have role based universal put method
+| 24.12 | 1    | fix login error mesg, finish forumpost lock (front and fix in back)
