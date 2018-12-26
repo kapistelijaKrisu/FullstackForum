@@ -8,12 +8,17 @@ const edit = async (request, response) => {
         return response.status(400).json({ error: ['No body found'] });
     }
     const currentComment = await findByCommentId(requestEditComment.comment_id)
+    if (currentComment.deleted !== true) {
     setEditableValuesByRoles(currentComment, requestEditComment, request.securityContext)
+   console.log(currentComment)
     const errors = await listErrors(currentComment);
     if (errors.length === 0) {
-        await editComment(currentComment);
+        console.log(await editComment(currentComment), currentComment);
         return response.json(currentComment);
     }
+} else {
+    return response.status(400).json({ error: ['This is deleted'] });
+}
     return response.status(400).json({ error: errors });
 };
 
@@ -28,8 +33,9 @@ const setEditableValuesByRoles = (currentPost, requestEditForumpost, securityCon
 }
 
 const setEditableValuesByMod = (currentPost, requestEditForumpost) => {
-    if (requestEditForumpost.disabled !== undefined) {
-        currentPost.disabled = requestEditForumpost.disabled;
+    if (requestEditForumpost.deleted !== undefined) {
+        console.log(currentPost.deleted)
+        currentPost.deleted = requestEditForumpost.deleted;
     }
 }
 

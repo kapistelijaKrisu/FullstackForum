@@ -28,7 +28,7 @@ const db_creation = async () => {
             console.log('Test data has been added')
         } else {
             await initRoles(client)//dont forget this
-            await migration(client)
+            //await migration(client)
         }
     } catch (e) {
         console.log('db init failed', e)

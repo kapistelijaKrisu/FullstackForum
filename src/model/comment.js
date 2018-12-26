@@ -20,7 +20,7 @@ const findByDudeId = async (dude_id, includeDeleted) => {
 const findByCommentId = async (comment_id) => {
     let text = 'SELECT * FROM Comment WHERE comment_id = $1;'
     const { rows } = await pool.query(text, [comment_id])
-    return rows
+    return rows[0]
 }
 
 const insertComment = async (comment) => {

@@ -5,7 +5,7 @@ const LIMIT = CONSTANTS.FORUMPOST.DEFAULT_LIMIT_PER_PAGE;
 const findForumpost = async (forumpost_id) => {
     const text = 'SELECT'
         + ' p.forumpost_id, p.title, p.creator_id AS postcreator, p.category_id, p.disabled, '
-        + ' c.comment_id, c.content AS commentcontent, c.creator_id AS commentcreator, c.posttime, '
+        + ' c.comment_id, c.content AS commentcontent, c.creator_id AS commentcreator, c.posttime, c.deleted, c.edited,'
         + ' cat.name AS categoryname,'
         + ' d.username AS commentcreatorname'
 
@@ -35,13 +35,15 @@ const findForumpost = async (forumpost_id) => {
         return post;
     }
     rows.forEach(row => {
-        post.comments = post.comments.concat({
+        console.log(row.deleted)
+        post.comments.push({
             comment_id: row.comment_id,
             content: row.commentcontent,
             creator_id: row.commentcreator,
             creatorname: row.commentcreatorname,
-            posttime: row.posttime
-
+            posttime: row.posttime,
+            edited: row.edited,
+            deleted: row.deleted
         })
     });
     return post;
