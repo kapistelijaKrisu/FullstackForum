@@ -28,8 +28,9 @@ const db_creation = async () => {
             console.log('Test data has been added')
         } else {
             await initRoles(client)//dont forget this
-            // await migration(client)
+             await migration(client)
         }
+        await migration(client)
     } catch (e) {
         console.log('db init failed', e)
     } finally {
@@ -38,11 +39,11 @@ const db_creation = async () => {
 }
 
 const migration = async (client) => {
-    let text = 'ALTER TABLE Forumpost '
-        + 'ADD COLUMN disabled boolean;'
+    let text = 'ALTER TABLE Comment '
+        + 'ADD COLUMN deleted boolean;'
     await client.query(text)
-    text = 'UPDATE Forumpost '
-    + 'SET disabled = false;'
+    text = 'UPDATE Comment '
+    + 'SET deleted = false;'
     await client.query(text)
 }
 
