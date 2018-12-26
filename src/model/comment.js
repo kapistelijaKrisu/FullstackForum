@@ -1,13 +1,25 @@
 const { pool } = require('../config/dbpool')
 
-const findByforumpost_id = async (forumpost_id) => {
-    const text = 'SELECT * FROM Comment WHERE forumpost_id = $1;'
+const findByforumpost_id = async (forumpost_id, includeDeleted) => {
+    let text = 'SELECT * FROM Comment WHERE forumpost_id = $1'
+    if (!includeDeleted) {
+        text = text + ' AND deleted != TRUE'
+    }
     const { rows } = await pool.query(text, [forumpost_id])
     return rows
 }
-const findByDudeId = async (dude_id) => {
-    const text = 'SELECT * FROM Comment WHERE creator_id = $1;'
+const findByDudeId = async (dude_id, includeDeleted) => {
+    let text = 'SELECT * FROM Comment WHERE creator_id = $1;'
+    if (!includeDeleted) {
+        text = text + ' AND deleted != TRUE'
+    }
     const { rows } = await pool.query(text, [dude_id])
+    return rows
+}
+
+const findByCommentId = async (comment_id) => {
+    let text = 'SELECT * FROM Comment WHERE comment_id = $1;'
+    const { rows } = await pool.query(text, [comment_id])
     return rows
 }
 
@@ -18,8 +30,19 @@ const insertComment = async (comment) => {
     return rows[0]
 }
 
+const editComment = async (comment) => {
+    const text = 'UPDATE Comment SET'
+    + ' content = $2, deleted = $3, edited = $4'
+    + ' WHERE comment_id = $1;';
+    const values = [comment.comment_id, comment.content, comment.deleted, comment.edited]
+    const { rows } = await pool.query(text, values)
+    return rows[0]
+}
+
 module.exports = {
     insertComment,
+    findByCommentId,
+    editComment,
     findByDudeId,
     findByforumpost_id
 }

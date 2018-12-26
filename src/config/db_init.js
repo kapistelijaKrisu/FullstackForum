@@ -28,9 +28,8 @@ const db_creation = async () => {
             console.log('Test data has been added')
         } else {
             await initRoles(client)//dont forget this
-             await migration(client)
+            await migration(client)
         }
-        await migration(client)
     } catch (e) {
         console.log('db init failed', e)
     } finally {
@@ -40,10 +39,7 @@ const db_creation = async () => {
 
 const migration = async (client) => {
     let text = 'ALTER TABLE Comment '
-        + 'ADD COLUMN deleted boolean;'
-    await client.query(text)
-    text = 'UPDATE Comment '
-    + 'SET deleted = false;'
+        + 'ADD COLUMN edited timestamp;'
     await client.query(text)
 }
 
@@ -94,6 +90,8 @@ const initCommentTable = async (client) => {
         + 'creator_id int NOT NULL, '
         + 'forumpost_id int NOT NULL, '
         + 'posttime timestamp NOT NULL, '
+        + 'edited timestamp, '
+        + 'deleted boolean DEFAULT false NOT NULL, '
         + 'FOREIGN KEY (creator_id) REFERENCES Dude(dude_id), '
         + 'FOREIGN KEY (forumpost_id) REFERENCES Forumpost(forumpost_id)'
         + '); '

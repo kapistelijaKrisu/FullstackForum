@@ -32,4 +32,5 @@
 - improve personal page (exact way to be defined, partially done with other tasks)
 - make background fancier
 - tests, proptypes
-- mod lock accounts...have to re-model registration as well for this to be of any value. Right now password only exists to prevent impersonation for common users
+- PART1 mod lock accounts...have to re-model registration as well for this to be of any value. Right now password only exists to prevent impersonation for common users
+- PART2 edit currently only changes params according to rights, should add reporting for attempting to change values that are not allowed to be changed.
