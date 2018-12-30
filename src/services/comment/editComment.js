@@ -1,4 +1,3 @@
-const jsDateToPgDate = require('../../utils/jsDateToPgDate')
 const listErrors = require('./listErrors')
 const {findByCommentId, editComment} = require('../../model/comment')
 
@@ -10,10 +9,8 @@ const edit = async (request, response) => {
     const currentComment = await findByCommentId(requestEditComment.comment_id)
     if (currentComment.deleted !== true) {
     setEditableValuesByRoles(currentComment, requestEditComment, request.securityContext)
-   console.log(currentComment)
     const errors = await listErrors(currentComment);
     if (errors.length === 0) {
-        console.log(await editComment(currentComment), currentComment);
         return response.json(currentComment);
     }
 } else {
@@ -34,7 +31,6 @@ const setEditableValuesByRoles = (currentPost, requestEditForumpost, securityCon
 
 const setEditableValuesByMod = (currentPost, requestEditForumpost) => {
     if (requestEditForumpost.deleted !== undefined) {
-        console.log(currentPost.deleted)
         currentPost.deleted = requestEditForumpost.deleted;
     }
 }
@@ -42,7 +38,6 @@ const setEditableValuesByMod = (currentPost, requestEditForumpost) => {
 const setEditableValuesByCreator = (currentPost, requestEditForumpost) => {
     if (requestEditForumpost.content) {
         currentPost.content = requestEditForumpost.content.trim();
-        currentPost.edited = jsDateToPgDate(Date.now());
     }
 }
 
