@@ -6,6 +6,7 @@
 
 ### priority
 - view count for forumpost
+- fix style for asking to login i order to post into category
 - prettify forumpostlink
 - backend validator for number type params (getters mostly)
 - answer to feedback by cleaning code style
