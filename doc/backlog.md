@@ -5,15 +5,14 @@
 ## after summer
 
 ### priority
-- redirect from not existing post leads to undefined category, redirect to error page so bug is never encountered
 - view count for forumpost
 - prettify forumpostlink
 - backend validator for number type params (getters mostly)
 - answer to feedback by cleaning code style
-### optional
 - update libraries
 - paging for comments
 - likes for forumpost
+### optional
 - deal with desync coming from changing category
 - update node (requires updating bcrypt)
 - follow posts by adding bookmark section to profile page

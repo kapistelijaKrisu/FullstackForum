@@ -18,3 +18,4 @@ to frontend https://github.com/kapistelijaKrisu/forumFront
 </br>
 hour diary https://github.com/kapistelijaKrisu/FullstackForum/blob/master/doc/HourDiary.md
 </br>
+Sadly couldn't spend enough time to finish another 10 essential tasks in backlog. Frontend comment and forumpost related components might still be hard to read. 

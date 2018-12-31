@@ -56,7 +56,7 @@ const findPureForumpost = async (forumpost_id) => {
 
 //must have at least 1 comment to work
 const findByCategoryId = async (category_id, limit = LIMIT, offset = 0) => {
-    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id, f.disabled'
+    const text = 'SELECT f.forumpost_id, f.title, f.creator_id, f.category_id, f.disabled, max(c.posttime) as last_comment_time, count(c) as comment_count'
     +' FROM Forumpost f '
     +' JOIN Comment c ON f.forumpost_id=c.forumpost_id' 
     +' WHERE f.category_id = $1'
