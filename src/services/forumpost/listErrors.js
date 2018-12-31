@@ -14,6 +14,11 @@ const listErrors = async (forumpost) => {
     } else if (!isInLength(CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MIN, CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MAX, true, forumpost.title)) {
         errors.push('Title should ' + CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MIN + '-' + CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MAX + ' characters long');
     }
+    if (forumpost.content !== null && forumpost.content !== undefined) {
+        if (!isInLength(CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN, CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX, true, forumpost.content.trim())) {
+            errors.push('Content should be ' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN + '-' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX +' character long')
+        }
+    }
     return errors;
 }
 

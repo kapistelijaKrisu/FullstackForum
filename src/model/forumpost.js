@@ -35,7 +35,6 @@ const findForumpost = async (forumpost_id) => {
         return post;
     }
     rows.forEach(row => {
-        console.log(row.deleted)
         post.comments.push({
             comment_id: row.comment_id,
             content: row.commentcontent,

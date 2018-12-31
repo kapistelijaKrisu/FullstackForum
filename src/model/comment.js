@@ -33,7 +33,7 @@ const insertComment = async (comment) => {
 const editComment = async (comment) => {
     const text = 'UPDATE Comment SET'
     + ' content = $2, deleted = $3, edited = now()'
-    + ' WHERE comment_id = $1;';
+    + ' WHERE comment_id = $1 RETURNING * ;';
     const values = [comment.comment_id, comment.content, comment.deleted]
     const { rows } = await pool.query(text, values)
     return rows[0]

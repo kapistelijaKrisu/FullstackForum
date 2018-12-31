@@ -11,7 +11,7 @@ const edit = async (request, response) => {
     setEditableValuesByRoles(currentComment, requestEditComment, request.securityContext)
     const errors = await listErrors(currentComment);
     if (errors.length === 0) {
-        return response.json(currentComment);
+        return response.json(await (editComment(currentComment)));
     }
 } else {
     return response.status(400).json({ error: ['This is deleted'] });

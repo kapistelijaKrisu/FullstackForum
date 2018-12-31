@@ -3,6 +3,7 @@ const { isInLength } = require('../../utils/validation')
 const { findForumpost } = require('../../model/forumpost')
 
 const listErrors = async (comment) => {
+    console.log(comment)
     let errors = [];
     await checkValues(errors, comment);
     !comment.forumpost_id ?
@@ -11,7 +12,7 @@ const listErrors = async (comment) => {
     return errors;
 }
 
-const checkValues = async (errors, comment) => {
+const checkValues = (errors, comment) => {
     if (!isInLength(CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN, CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX, true, comment.content.trim())) {
         errors.push('Content should be ' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN + '-' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX +' character long')
     }

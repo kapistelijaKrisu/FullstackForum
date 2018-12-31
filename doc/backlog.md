@@ -5,13 +5,14 @@
 ## after summer
 
 ### priority
-- delete comments (mod only, force hide not a real deletion)
-- edit category/comments
 - redirect from not existing post leads to undefined category, redirect to error page so bug is never encountered
 - view count for forumpost
 - prettify forumpostlink
 - backend validator for number type params (getters mostly)
+- answer to feedback by cleaning code style
 ### optional
+- update libraries
+- paging for comments
 - likes for forumpost
 - deal with desync coming from changing category
 - update node (requires updating bcrypt)
@@ -23,6 +24,7 @@
 - deploy via docker
 - insert pictures, gifs to comments
 - db init into script
+- edit category (low prio due to little editable things)
 - lint
 - update forumdb.png. not so important since \d in psql describes well relations
 - convert viewed posttime to local time
