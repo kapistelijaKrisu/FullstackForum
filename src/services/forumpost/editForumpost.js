@@ -7,9 +7,10 @@ const edit = async (request, response) => {
     if (requestEditForumpost === undefined) {
         return response.status(400).json({ error: ['No body found'] });
     }
+    const isNewPost = false;
     const currentForumpost = await findPureForumpost(requestEditForumpost.forumpost_id)
     setEditableValuesByRoles(currentForumpost, requestEditForumpost, request.securityContext)
-    const errors = await listErrors(currentForumpost);
+    const errors = await listErrors(currentForumpost, isNewPost);
     if (errors.length === 0) {
         await editForumpost(currentForumpost);
         return response.json(currentForumpost);

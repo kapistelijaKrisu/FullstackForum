@@ -2,7 +2,7 @@ const CONSTANTS = require('../../utils/constants')
 const { isInLength } = require('../../utils/validation')
 const { findById } = require('../../model/category')
 
-const listErrors = async (forumpost) => {
+const listErrors = async (forumpost, isNewPost) => {
     let errors = [];
     if (!forumpost.category_id) {
         errors.push('Choose a category for this post please');
@@ -14,10 +14,8 @@ const listErrors = async (forumpost) => {
     } else if (!isInLength(CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MIN, CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MAX, true, forumpost.title)) {
         errors.push('Title should ' + CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MIN + '-' + CONSTANTS.FORUMPOST.VALIDATATION.TITLE_LENGTH_MAX + ' characters long');
     }
-    if (forumpost.content !== null && forumpost.content !== undefined) {
-        if (!isInLength(CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN, CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX, true, forumpost.content.trim())) {
-            errors.push('Content should be ' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN + '-' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX +' character long')
-        }
+    if (isNewPost &&!isInLength(CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN, CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX, true, forumpost.content.trim())) {
+        errors.push('Content should be ' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MIN + '-' + CONSTANTS.COMMENT.VALIDATATION.CONTENT_LENGTH_MAX +' character long')
     }
     return errors;
 }

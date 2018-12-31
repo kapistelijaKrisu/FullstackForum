@@ -2,13 +2,12 @@ const CONSTANTS = require('../../utils/constants')
 const { isInLength } = require('../../utils/validation')
 const { findForumpost } = require('../../model/forumpost')
 
-const listErrors = async (comment) => {
-    console.log(comment)
+const listErrors = async (comment, editingContent) => {
     let errors = [];
     await checkValues(errors, comment);
     !comment.forumpost_id ?
     errors.push('Choose the post u r commenting please') :
-    await checkForumpost(errors, comment);
+    await checkForumpost(errors, comment, editingContent);
     return errors;
 }
 
@@ -18,11 +17,11 @@ const checkValues = (errors, comment) => {
     }
 }
 
-const checkForumpost = async (errors, comment) => {
+const checkForumpost = async (errors, comment, editingContent) => {
     const owningForumpost = await findForumpost(comment.forumpost_id)
     if (!owningForumpost) {
         errors.push('This post does not exist')
-    } else if (!!owningForumpost.disabled) {
+    } else if (!!owningForumpost.disabled && !!editingContent) {
         errors.push('This post is locked!')
     }
 }

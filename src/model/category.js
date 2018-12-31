@@ -1,16 +1,17 @@
 const { pool } = require('../config/dbpool')
 
 const findAll = async () => {
+    console.log('a')
     const text = ` SELECT
         c.category_id, c.name,
         c.description, c.creator_id,
-        d.username as creator_name,
+        sdd.lastposter_username as creator_name,
         coalesce(fcount, 0) as forumpost_count,
-        last_post_time, 
-        last_post_forumpost_id,
-        lastposter_username,
-        lastposter_dude_id,
-        lastpost_title
+        sdd.last_post_time, 
+        sdd.last_post_forumpost_id,
+        sdd.lastposter_username,
+        sdd.lastposter_dude_id,
+        sdd.lastpost_title
     FROM Category c
     LEFT JOIN
         (SELECT f.category_id, count(1) fcount
@@ -18,18 +19,30 @@ const findAll = async () => {
         GROUP BY f.category_id) as sd 
     ON sd.category_id = c.category_id
     LEFT JOIN 
-        (SELECT f.category_id, f.forumpost_id as last_post_forumpost_id, f.title as lastpost_title, co.posttime last_post_time, d.username lastposter_username, d.dude_id lastposter_dude_id
-            FROM Forumpost f, Comment co, Dude d
-            WHERE co.forumpost_id = f.forumpost_id
-            AND d.dude_id = co.creator_id 
-            ORDER BY co.posttime DESC
-            LIMIT 1
+        (SELECT DISTINCT ON (cat_id)  c.category_id as cat_id,
+        fresh.forumpost_id as last_post_forumpost_id,
+        fresh.title as lastpost_title,
+        fresh.posttime last_post_time,
+        fresh.username lastposter_username, 
+        fresh.dude_id lastposter_dude_id
+            FROM Forumpost f, Comment co, Dude d, Category c
+            LEFT JOIN
+            (SELECT f.category_id, f.forumpost_id, f.title, co.posttime, d.username, d.dude_id
+                FROM comment co
+                INNER JOIN Dude d ON d.dude_id = co.creator_id
+                INNER JOIN Forumpost f ON f.forumpost_id = co.forumpost_id
+                INNER JOIN Category c ON c.category_id = f.category_id
+                WHERE co.forumpost_id = f.forumpost_id
+                ORDER BY co.posttime DESC
+                ) as fresh
+            ON fresh.category_id = c.category_id
             ) as sdd
-            ON sdd.category_id = c.category_id
+    ON cat_id = c.category_id
     LEFT JOIN Dude d
-    ON c.creator_id = d.dude_id
+    ON sdd.lastposter_dude_id = d.dude_id
     ORDER BY c.name`
     const { rows } = await pool.query(text)
+    console.log(rows)
     return rows
 }
 

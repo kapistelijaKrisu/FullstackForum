@@ -6,7 +6,8 @@ const { insertForumpost } = require('../../model/forumpost')
 
 const addForumPostWithInitialComment = async (request, response) => {
     const forumpost = formatForumpost(request);
-    const errors = await listErrors(forumpost);
+    const isNewPost = true;
+    const errors = await listErrors(forumpost, isNewPost);
     if (errors.length === 0) {
         const savedForumpost = await insertForumpost(forumpost)
         savedForumpost.creatorname = request.securityContext.username;

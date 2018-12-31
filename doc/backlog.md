@@ -5,6 +5,7 @@
 ## after summer
 
 ### priority
+- FIX get categories SQL
 - view count for forumpost
 - fix style for asking to login i order to post into category
 - prettify forumpostlink

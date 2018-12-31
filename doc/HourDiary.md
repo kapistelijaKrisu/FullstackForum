@@ -31,4 +31,4 @@
 | 24.12 | 1    | fix login error mesg, finish forumpost lock (front and fix in back)
 | 26.12 | 3    | edit comment initialized syncing with frontend left
 | 30.12 | 4    | finish edit comment
-| 31.12 | 4    | actually fixed the reducer, it also fixed redirecting to undefined. Fixed posting forumpost. Fighting sql for combining data of forumposts with comments.
+| 31.12 | 6    | actually fixed the reducer, it also fixed redirecting to undefined. Fixed posting forumpost. Fighting sql for combining data of forumposts with comments. Fixing getail categories query and  fixed editing by rights
