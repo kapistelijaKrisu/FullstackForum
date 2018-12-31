@@ -5,7 +5,7 @@
 ## after summer
 
 ### priority
-- FIX get categories SQL
+- ensure get categories SQL FIX frontend not refreshing upon postin comments and forumposts
 - view count for forumpost
 - fix style for asking to login i order to post into category
 - prettify forumpostlink

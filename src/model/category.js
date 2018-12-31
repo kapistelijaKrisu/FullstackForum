@@ -26,14 +26,13 @@ const findAll = async () => {
         fresh.username lastposter_username, 
         fresh.dude_id lastposter_dude_id
             FROM Forumpost f, Comment co, Dude d, Category c
-            LEFT JOIN
-            (SELECT f.category_id, f.forumpost_id, f.title, co.posttime, d.username, d.dude_id
+            left JOIN
+            (SELECT DISTINCT ON (f.category_id) f.category_id, f.forumpost_id, f.title, co.posttime, d.username, d.dude_id
                 FROM comment co
                 INNER JOIN Dude d ON d.dude_id = co.creator_id
-                INNER JOIN Forumpost f ON f.forumpost_id = co.forumpost_id
-                INNER JOIN Category c ON c.category_id = f.category_id
+                left JOIN Forumpost f ON f.forumpost_id = co.forumpost_id
                 WHERE co.forumpost_id = f.forumpost_id
-                ORDER BY co.posttime DESC
+                ORDER BY f.category_id asc, co.posttime DESC
                 ) as fresh
             ON fresh.category_id = c.category_id
             ) as sdd
