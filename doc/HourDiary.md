@@ -1,4 +1,6 @@
-# työaikakirjanpito
+# työaikakirjanpito 
+
+### kevät
 
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
@@ -16,6 +18,13 @@
 | 30.5  | 3    | heroku toimii statikin kans, xtra detailii kommentteihin
 | 31.5  | 6    | korjaa spa määrittelyn rikkovat osat, tuotanto alustava data, muut bugit, dokkarin päivitys, notifikaatiot, error404 sivu, validaatio
 --------------------------------------
+
+Yhteensä 54.5h
+
+### syksy
+
+| päivä | aika | mitä tein  |
+| :----:|:-----| :-----|
 | 25.9  | 3    | arkkitehtuurin järkkääminen pakkaukset
 | 2.10  | 3    | kategorian siistiminen ja siistimisen korjaus ja errorlog one-lineri
 | 5.10  | 4    | loput kontrollerit siistiksi
@@ -31,4 +40,6 @@
 | 24.12 | 1    | fix login error mesg, finish forumpost lock (front and fix in back)
 | 26.12 | 3    | edit comment initialized syncing with frontend left
 | 30.12 | 4    | finish edit comment
-| 31.12 | 6    | actually fixed the reducer, it also fixed redirecting to undefined. Fixed posting forumpost. Fighting sql for combining data of forumposts with comments. Fixing getail categories query and  fixed editing by rights
+| 31.12 | 6    | actually fixed the reducer, it also fixed redirecting to undefined. Fixed posting forumpost. Fighting sql for combining data of forumposts with comments. Fixing getail categories query and  fixed editing by rights  
+
+yhteensä: 47h

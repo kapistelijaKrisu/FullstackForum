@@ -6,6 +6,7 @@
 
 ### priority
 - ensure get categories SQL FIX frontend not refreshing upon postin comments and forumposts
+- delete button for mod comments arent in production
 - view count for forumpost
 - fix style for asking to login i order to post into category
 - prettify forumpostlink
